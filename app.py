@@ -1,24 +1,34 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "<p>Hello, World!</p>"
+    
+    return render_template("login.html")
+
+@app.route("/dashboard", methods=["POST"])
+def dashboard():
+    username = request.form["username"]
+    password = request.form["password"]
+    return render_template("dashboard.html", username=username, password=password)
+
+@app.route("/dashboard/create", methods=["POST"])
+def create():
+    invoice_number = request.form["invoice"]
+    taxvalue = request.form.getlist("taxvalue")
+    message = request.form["message"]
+    return render_template("invoice.html", invoice_number = invoice_number,
+                                            taxvalue=taxvalue,
+                                            message=message
+    )
 
 
-@app.route("/page1")
-def page1():
-    return "Tämä on sivu 1"
 
-@app.route("/page2")
-def page2():
-    content = ""
-    for i in range(100):
-        content += str(i + 1) + " "
-    return content
-
-@app.route("/page/<int:id>")
+@app.route("/dashboard/invoice/<int:id>")
 def page3(id):
-    return "Tämä on sivu " + str(id)
+    return "This is invoice number " + str(id)
+
+
+
 

@@ -1,0 +1,24 @@
+
+
+<p>Hi {{ username }} </p>
+
+
+
+<form action="/dashboard/create" method="POST">
+    Invoice type:
+    <p>
+    <input type="radio" name="invoice" value="1"> Invoice 1
+    <input type="radio" name="invoice" value="2"> Invoice 2
+    <input type="radio" name="invoice" value="3"> Invoice 3
+    <input type="radio" name="invoice" value="4"> Invoice 4
+    <p>
+    Tax
+    <p>
+    <input type="checkbox" name="taxvalue" value="A"> 17%
+    <input type="checkbox" name="taxvalue" value="B"> 23%
+    <p>
+    Message <br>
+    <textarea name="message" rows="3" cols="50"></textarea>
+    <p>
+    <input type="submit" value="Lähetä">
+    </form>
