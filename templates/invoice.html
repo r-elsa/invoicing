@@ -1,8 +1,10 @@
 Invoice {{ invoice_number }}
+
+{{service}}
 <p>
 Tax value
 <ul>
-{% for value in taxvalue %}
+{% for value in taxpercentage %}
 <li> {{ extra }}
 {% endfor %}
 </ul>
