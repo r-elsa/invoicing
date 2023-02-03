@@ -119,16 +119,6 @@ class Payment(db.Model):
   
   
 
-
-
-
-
-
-
-
-
-
-
 # Backend
 
 
@@ -164,9 +154,8 @@ def create_new_invoice():
 
 @app.route("/", methods=["POST"])
 def new_invoice():
-    #invoice_number = request.form["invoice"]
+  
     service = request.form["service"]
-
     taxpercentage = request.form.getlist("taxpercentage")
     message = request.form["message"]
     # store values in database.
