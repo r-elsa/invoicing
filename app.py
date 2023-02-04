@@ -139,16 +139,17 @@ def signup():
 
 
 
+
+
+
 @app.route("/dashboard", methods=["POST"])
 def dashboard():
 
     # render all invoices for logged in user
-
-
-
-
+   
+        
     referralroute = request.referrer
-    returntemplate = render_template("dashboard.html")
+   
 
     # create invoice
     if referralroute[-13:]=="createinvoice":
@@ -169,10 +170,9 @@ def dashboard():
         sql = "INSERT INTO invoices (logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type,discount,comment) VALUES (:logged_user, :project_name, :client_name, :summary, :raised_date, :due_date, :status, :tax_type, :discount,:comment)"
         db.session.execute(text(sql), {"logged_user":logged_user,  "project_name": project_name, "client_name": client_name, "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,"comment":comment})
         db.session.commit()
-        return returntemplate
+     
 
 
-    
 
     # sign up
     elif referralroute[-6:]=="signup":
@@ -199,9 +199,14 @@ def dashboard():
         result = db.session.execute(text(sql), {"username":"%"+username+"%", "password":"%"+password+"%"})
         soughtuser = result.fetchall()
         if (len(soughtuser)) == 0:
-            returntemplate = render_template("login.html", errormessage = "Wrong username or password")
-              
-    return returntemplate
+            render_template("login.html", errormessage = "Wrong username or password")
+
+
+    logged_user = 2 
+    sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user"
+    result = db.session.execute(text(sql), {"logged_user":logged_user})
+    all_invoices = result.fetchall()      
+    return render_template("dashboard.html", all_invoices=all_invoices)
 
 
 
@@ -236,8 +241,6 @@ def page3(id):
 
 
 
-
-#################################################################
 @app.route("/mall_new")
 def new():
     return render_template("mall_new.html")

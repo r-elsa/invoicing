@@ -9,6 +9,31 @@
 </form>
 
 
-{{ invoices}}
+{% for invoice in all_invoices %}
+
+<div class="card">
+    <div class="container">
+      <h4><b>{{invoice.id}}</b></h4> 
+      <p>{{invoice.project_name}}</p> 
+      <p>{{invoice.client_name}}</p> 
+      <p> {{invoice.due_date}}</p> 
+      <p> {{invoice.status}}</p> 
+      <p></p> 
+      <p></p> 
+    </div>
+  </div>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
 
 
