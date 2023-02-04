@@ -1,0 +1,52 @@
+
+
+<form action="/" method="POST">
+
+  <br>
+  New invoice:
+
+  Project Service:
+
+  <input type="text" name="service">
+
+
+
+    Service:
+
+    <input type="text" name="service">
+
+
+ 
+      Tax percentage
+    <p>
+    <input type="radio" name="taxpercentage" value="ten"> 10 %
+    <input type="radio" name="taxpercentage" value="fourteen"> 14 %
+    <input type="radio" name="taxpercentage" value="twentyfour"> 24%
+    <input type="radio" name="taxpercentage" value="thirty"> 30%
+
+    <p>
+    Tax
+    <p>
+    <input type="checkbox" name="hh" value="A"> sfds
+    <input type="checkbox" name="hh" value="B"> rgrtg
+    <p>
+    Message <br>
+    <textarea name="message" rows="3" cols="50"></textarea>
+    <p>
+    <input type="submit" value="Add">
+    </form>
+
+
+  
+    id = db.Column(db.Integer, primary_key =True)
+    sender = db.Column(db.Integer)  # key to user who sent invoice
+    project_id = db.Column(db.Integer)  ## key to Project
+    client_id = db.Column(db.Integer) # connect to client
+    summary = db.Column(db.String(200))
+    raised_date = db.Column(db.DateTime)
+    due_date = db.Column(db.DateTime)
+    status = db.Column(db.String(200))
+    tax_type = db.Column(db.Integer)  # connect to taxtype 
+    discount = db.Column(db.Float)
+    comment = db.Column(db.String)
+

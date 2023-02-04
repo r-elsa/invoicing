@@ -5,6 +5,8 @@ from sqlalchemy import text
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timezone
+import re
+
 #from flask_migrate import Migrate
 
 load_dotenv()
@@ -20,7 +22,7 @@ db = SQLAlchemy(app)
 
 
 class User(db.Model):
-    __tablename__="user"
+    __tablename__="users"
     id = db.Column(db.Integer, primary_key =True)
     username = db.Column(db.String(200), unique = True)
     email = db.Column(db.String(200))
@@ -34,7 +36,7 @@ class User(db.Model):
 
 
 class Client(db.Model):
-    __tablename__= "client"
+    __tablename__= "clients"
     id = db.Column(db.Integer, primary_key =True)  ## client has many invoices
     name = db.Column(db.String(200))
 
@@ -44,7 +46,7 @@ class Client(db.Model):
 
 
 class Project(db.Model):
-    __tablename__="project"
+    __tablename__="projects"
     id = db.Column(db.Integer, primary_key =True) ##  project has many invoices, primary key to invoice that belongs to project
     name = db.Column(db.String(200), unique = True)
     description = db.Column(db.String(200))
@@ -55,11 +57,11 @@ class Project(db.Model):
       
 
 class Invoice(db.Model):
-    __tablename__="invoice"
+    __tablename__="invoices"
     id = db.Column(db.Integer, primary_key =True)
-    sender = db.Column(db.Integer)  # key to user who sent invoice
-    project_id = db.Column(db.Integer, primary_key =True)  ## key to Project
-    client_id = db.Column(db.Integer) # connect to client
+    user = db.Column(db.Integer)  # user
+    project_name = db.Column(db.Integer)  ## key to Project -name
+    client_name = db.Column(db.Integer) # connect to client
     summary = db.Column(db.String(200))
     raised_date = db.Column(db.DateTime)
     due_date = db.Column(db.DateTime)
@@ -69,10 +71,10 @@ class Invoice(db.Model):
     comment = db.Column(db.String)
     
     
-    def __init__(self, sender,project_id, client_id, summary, raised_date, due_date, status, tax_type, discount, comment):
-        self.sender=sender
-        self.project_id=project_id
-        self.client_id=client_id
+    def __init__(self, user,project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment):
+        self.user =user
+        self.project_name=project_name
+        self.client_name=client_name
         self.summary=summary
         self.raised_date=raised_date
         self.due_date=due_date
@@ -84,7 +86,7 @@ class Invoice(db.Model):
 
 
 class InvoiceItem(db.Model):
-    __tablename__= "invoiceitem"
+    __tablename__= "invoiceitems"
     id = db.Column(db.Integer, primary_key =True)
     description = db.Column(db.String(200))
     price_per_unit = db.Column(db.Float)
@@ -98,7 +100,7 @@ class InvoiceItem(db.Model):
 
 
 class TaxType(db.Model):
-    __tablename__= "taxtype"
+    __tablename__= "taxtypes"
     id = db.Column(db.Integer, primary_key =True)
     name = db.Column(db.String(200))
     percentage = db.Column(db.Float)
@@ -110,7 +112,7 @@ class TaxType(db.Model):
         self.comment= comment
 
 class Payment(db.Model):
-    __tablename__= "payment"
+    __tablename__= "payments"
     id = db.Column(db.Integer, primary_key =True)
     bank_name = db.Column(db.String(200))
     bank_branch = db.Column(db.String(200))
@@ -127,6 +129,10 @@ def index():
     db.create_all()
     return render_template("login.html")
 
+@app.route("/signup",  methods=["POST", "GET"])
+def signup():
+    return render_template("signup.html")
+
     """ result = db.session.execute(text(f"SELECT content FROM invoicess"))
     messages = result.fetchall()
     return render_template("mall_index.html", count=len(messages), messages=messages)   """
@@ -135,21 +141,44 @@ def index():
 
 @app.route("/dashboard", methods=["POST"])
 def dashboard():
-    email = request.form["email"]
     username = request.form["username"]
     password = request.form["password"]
-    #tietokantakysely -- users if username exists ---> RENDER all invoices of user
-    # if user not exists ----> create user 
-    #dashboard.html render alla invoices
+    returntemplate = render_template("dashboard.html", username=username, password=password)
+    referralroute = request.referrer
 
-    return render_template("dashboard.html", username=username, password=password)
+    # sign up
+    if referralroute[-6:]=="signup":
+        #is username alredy taken
+        sql = "SELECT id, username FROM users WHERE username LIKE :username"
+        result = db.session.execute(text(sql), {"username":"%"+username+"%"})
+        soughtuser = result.fetchall()
+        if (len(soughtuser)) > 0:
+            returntemplate = render_template("signup.html", errormessage = "Username already taken")
+        else:     
+            email = request.form["email"]
+            sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"
+            db.session.execute(text(sql), {"username":username, "email":email,"password":password})
+            db.session.commit()
+    
+    #login
+    
+    else:
+        sql = "SELECT id, email FROM users WHERE username LIKE :username AND password LIKE :password"
+        result = db.session.execute(text(sql), {"username":"%"+username+"%", "password":"%"+password+"%"})
+        soughtuser = result.fetchall()
+        if (len(soughtuser)) == 0:
+            returntemplate = render_template("login.html", errormessage = "Wrong username or password")
+              
+
+    return returntemplate
 
 
 
 
-@app.route("/new", methods=["POST"])
+@app.route("/createinvoice", methods=["POST"])
 def create_new_invoice():
-    return render_template("createinvoice.html")
+
+    return render_template("create_invoice.html")
 
 
 @app.route("/", methods=["POST"])

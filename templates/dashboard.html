@@ -1,14 +1,14 @@
 
 
-<p>Hi {{ username }} </p>
+<p> Welcome {{username}} ! </p>
 
 
-<form method="post" action="/new">
+<form method="post" action="/createinvoice">
     <input type="submit" value="Create new invoice" name="create"/>
    
 </form>
 
 
-<p> You invoices:</p>
+{{ invoices}}
 
 
