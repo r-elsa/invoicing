@@ -37,10 +37,8 @@
     </form>
 
 
-  
-    id = db.Column(db.Integer, primary_key =True)
-    sender = db.Column(db.Integer)  # key to user who sent invoice
-    project_id = db.Column(db.Integer)  ## key to Project
+
+    project_id = db.Column(db.Integer)  project name
     client_id = db.Column(db.Integer) # connect to client
     summary = db.Column(db.String(200))
     raised_date = db.Column(db.DateTime)

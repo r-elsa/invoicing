@@ -60,8 +60,8 @@ class Invoice(db.Model):
     __tablename__="invoices"
     id = db.Column(db.Integer, primary_key =True)
     user = db.Column(db.Integer)  # user
-    project_name = db.Column(db.Integer)  ## key to Project -name
-    client_name = db.Column(db.Integer) # connect to client
+    project_name = db.Column(db.String(200))  ## key to Project -name
+    client_name = db.Column(db.String(200)) # connect to client
     summary = db.Column(db.String(200))
     raised_date = db.Column(db.DateTime)
     due_date = db.Column(db.DateTime)
@@ -177,6 +177,22 @@ def dashboard():
 
 @app.route("/createinvoice", methods=["POST"])
 def create_new_invoice():
+
+    user = "elsa" # user id - from session data
+    project_name = request.form["project_name"]  ## key to Project -name, not id
+    client_name = request.form["client_name"] # connect to client name , not id
+    summary = request.form["summary"]
+    raised_date = datetime.now()
+    due_date = request.form["due_date"]
+    status = request.form["status"]
+    tax_type = request.form["tax_type"] # connect to taxtype 
+    discount = request.form["discount"]
+    comment = request.form["comment"]
+
+    sql = "INSERT INTO invoices (user, project_name, client_name, summary, raised_date, due_date, status, tax_type,discount,comment) VALUES (:user, :project_name, :client_name, :summary, :raised_date, :due_date, :status, :tax_type, :discount,:comment)"
+    db.session.execute(text(sql), {"user":user,  "project_name": project_name, "client_name": client_name, "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,"comment":comment})
+    db.session.commit()
+
 
     return render_template("create_invoice.html")
 
