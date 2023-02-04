@@ -59,7 +59,7 @@ class Project(db.Model):
 class Invoice(db.Model):
     __tablename__="invoices"
     id = db.Column(db.Integer, primary_key =True)
-    user = db.Column(db.Integer)  # user
+    logged_user = db.Column(db.Integer)  # user
     project_name = db.Column(db.String(200))  ## key to Project -name
     client_name = db.Column(db.String(200)) # connect to client
     summary = db.Column(db.String(200))
@@ -71,8 +71,8 @@ class Invoice(db.Model):
     comment = db.Column(db.String)
     
     
-    def __init__(self, user,project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment):
-        self.user =user
+    def __init__(self, logged_user,project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment):
+        self.logged_user = logged_user
         self.project_name=project_name
         self.client_name=client_name
         self.summary=summary
@@ -141,13 +141,43 @@ def signup():
 
 @app.route("/dashboard", methods=["POST"])
 def dashboard():
-    username = request.form["username"]
-    password = request.form["password"]
-    returntemplate = render_template("dashboard.html", username=username, password=password)
+
+    # render all invoices for logged in user
+
+
+
+
     referralroute = request.referrer
+    returntemplate = render_template("dashboard.html")
+
+    # create invoice
+    if referralroute[-13:]=="createinvoice":
+     
+        logged_user = 2 # user id - from session data
+        project_name = request.form["project_name"]  ## key to Project -name, not id
+        client_name = request.form["client_name"] # connect to client name , not id
+        summary = request.form["summary"]
+        raised_date = datetime.now()
+        due_date = request.form["due_date"]
+        status = request.form["status"]
+        tax_type = request.form["tax_type"] # connect to taxtype 
+        discount = request.form["discount"]
+        comment = request.form["comment"]
+       
+    
+
+        sql = "INSERT INTO invoices (logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type,discount,comment) VALUES (:logged_user, :project_name, :client_name, :summary, :raised_date, :due_date, :status, :tax_type, :discount,:comment)"
+        db.session.execute(text(sql), {"logged_user":logged_user,  "project_name": project_name, "client_name": client_name, "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,"comment":comment})
+        db.session.commit()
+        return returntemplate
+
+
+    
 
     # sign up
-    if referralroute[-6:]=="signup":
+    elif referralroute[-6:]=="signup":
+        username = request.form["username"]
+        password = request.form["password"]
         #is username alredy taken
         sql = "SELECT id, username FROM users WHERE username LIKE :username"
         result = db.session.execute(text(sql), {"username":"%"+username+"%"})
@@ -163,13 +193,14 @@ def dashboard():
     #login
     
     else:
+        username = request.form["username"]
+        password = request.form["password"]
         sql = "SELECT id, email FROM users WHERE username LIKE :username AND password LIKE :password"
         result = db.session.execute(text(sql), {"username":"%"+username+"%", "password":"%"+password+"%"})
         soughtuser = result.fetchall()
         if (len(soughtuser)) == 0:
             returntemplate = render_template("login.html", errormessage = "Wrong username or password")
               
-
     return returntemplate
 
 
@@ -177,23 +208,6 @@ def dashboard():
 
 @app.route("/createinvoice", methods=["POST"])
 def create_new_invoice():
-
-    user = "elsa" # user id - from session data
-    project_name = request.form["project_name"]  ## key to Project -name, not id
-    client_name = request.form["client_name"] # connect to client name , not id
-    summary = request.form["summary"]
-    raised_date = datetime.now()
-    due_date = request.form["due_date"]
-    status = request.form["status"]
-    tax_type = request.form["tax_type"] # connect to taxtype 
-    discount = request.form["discount"]
-    comment = request.form["comment"]
-
-    sql = "INSERT INTO invoices (user, project_name, client_name, summary, raised_date, due_date, status, tax_type,discount,comment) VALUES (:user, :project_name, :client_name, :summary, :raised_date, :due_date, :status, :tax_type, :discount,:comment)"
-    db.session.execute(text(sql), {"user":user,  "project_name": project_name, "client_name": client_name, "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,"comment":comment})
-    db.session.commit()
-
-
     return render_template("create_invoice.html")
 
 

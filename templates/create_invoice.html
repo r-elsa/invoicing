@@ -1,50 +1,64 @@
 
 
-<form action="/" method="POST">
+<form action="/dashboard" method="POST">
 
   <br>
   New invoice:
+  <br>
 
-  Project Service:
+  Project name:
 
-  <input type="text" name="service">
+  <input type="text" name="project_name">
 
+  <br>
 
+    Client name:
 
-    Service:
+    <input type="text" name="client_name">
 
-    <input type="text" name="service">
+    <br>
+    Summary:
 
+    <input type="text" name="summary">
 
+    <br>
+    Due date:
+ <input type="datetime-local" name="due_date">
+
+ <br>
+    Status:
+    <p>
+      <input type="radio" name="status" value="created"> Created
+      <input type="radio" name="status" value="sent"> Sent
+      <input type="radio" name="status" value="paid"> Paid
  
-      Tax percentage
+      <p>
+
+        <br>
+      Tax percentage:
     <p>
-    <input type="radio" name="taxpercentage" value="ten"> 10 %
-    <input type="radio" name="taxpercentage" value="fourteen"> 14 %
-    <input type="radio" name="taxpercentage" value="twentyfour"> 24%
-    <input type="radio" name="taxpercentage" value="thirty"> 30%
+    <input type="radio" name="tax_type" value="10"> 10 %
+    <input type="radio" name="tax_type" value="14"> 14 %
+    <input type="radio" name="tax_type" value="24"> 24%
+    <input type="radio" name="tax_type" value="30"> 30%
 
     <p>
-    Tax
+   
+    
+    <br>
+    Discount:
+
+    <input type="number" step="0.05" name="discount">
+
+    <br>
+    Comment <br>
+    <textarea name="comment" rows="3" cols="50"></textarea>
     <p>
-    <input type="checkbox" name="hh" value="A"> sfds
-    <input type="checkbox" name="hh" value="B"> rgrtg
-    <p>
-    Message <br>
-    <textarea name="message" rows="3" cols="50"></textarea>
-    <p>
-    <input type="submit" value="Add">
+    
+    <input type="submit" value="Create">
     </form>
 
 
 
-    project_id = db.Column(db.Integer)  project name
-    client_id = db.Column(db.Integer) # connect to client
-    summary = db.Column(db.String(200))
-    raised_date = db.Column(db.DateTime)
-    due_date = db.Column(db.DateTime)
-    status = db.Column(db.String(200))
-    tax_type = db.Column(db.Integer)  # connect to taxtype 
-    discount = db.Column(db.Float)
-    comment = db.Column(db.String)
+ 
 
