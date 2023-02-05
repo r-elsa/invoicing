@@ -35,7 +35,11 @@ def signup():
 def dashboard():      
     referralroute = request.referrer
     logged_user = 1000000
-    username = "placeholder"   
+    username = "placeholder"
+    error = False 
+    returntemplate = ""
+    error_message = ""  
+
     # sign up
     if referralroute[-6:]=="signup":
         username = request.form["username"]
@@ -45,7 +49,9 @@ def dashboard():
         result = db.session.execute(text(sql), {"username":"%"+username+"%"})
         soughtuser = result.fetchall()
         if (len(soughtuser)) > 0:
-            render_template("signup.html", errormessage = "Username already taken")
+            error = True
+            returntemplate = "signup.html"
+            error_message = "Username already taken"
         else:     
             email = request.form["email"]
             sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"
@@ -65,7 +71,10 @@ def dashboard():
         result = db.session.execute(text(sql), {"username":"%"+username+"%", "password":"%"+password+"%"})
         soughtuser = result.fetchall()
         if (len(soughtuser)) == 0:
-            render_template("login.html", errormessage = "Wrong username or password")
+            error = True
+            returntemplate = "login.html"
+            error_message = "Wrong username or password"
+           
         else:
             logged_user = soughtuser[0][0]
 
@@ -91,8 +100,12 @@ def dashboard():
 
     sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user"
     result = db.session.execute(text(sql), {"logged_user":logged_user})
-    all_invoices = result.fetchall()      
-    return render_template("dashboard.html", all_invoices=all_invoices, username=username)
+    all_invoices = result.fetchall()  
+
+    if error == True:
+        return render_template(returntemplate, error_message = error_message)
+    else:
+        return render_template("dashboard.html", all_invoices=all_invoices, username=username)
 
 
 @app.route("/createinvoice", methods=["GET","POST"])
