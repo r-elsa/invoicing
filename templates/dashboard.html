@@ -11,20 +11,17 @@
 <body>
 
 
-
         <h1> Welcome {{username}}  </h1>
  
     <a href="/createinvoice" id="feature" target="_"  >Create new invoice</a>
     
-   <button id ="topright"><a href="/login"  target="_"  >Log out</a></button>
+   <button id ="topright"><a href="/logout"  target="_"  >Log out</a></button>
     {% for invoice in all_invoices %}
 
     
     
-    
-    
-        <div>
-       <div>{{invoice.project_name}}</div>
+        <div class = "grid-container">
+       <div> Project name:{{invoice.project_name}}
           <p> For client: {{invoice.client_name}}</p>
           <p> Due date: {{invoice.due_date}}</p>
           <p> Current status: {{invoice.status}}</p>

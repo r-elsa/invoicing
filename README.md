@@ -1,5 +1,18 @@
 # Invoicing application
 
+
+## To start application
+
+1) create database and ensure that postgres is running (e.g. "sudo service postgresql start" on linux) 
+2) write database address and secret key to .env file
+3) install poetry if you don't already have it installed
+    https://ohjelmistotekniikka-hy.github.io/python/viikko2#poetry-ja-riippuvuuksien-hallinta
+
+4) run poetry shell (inside project folder)
+5) run poetry run flask --debug run
+
+
+
 ## Requirements specification
 
 ### Purpose of the application
