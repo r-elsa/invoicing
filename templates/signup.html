@@ -1,16 +1,62 @@
-<form action="/dashboard" method="POST">
-    Sign up
-    <br>
-    Email
-    <input type="text" name="email" required pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b">
-    <br>
-    <br>
-    Username (minimun 3 characters)
-    <input type="text" name="username" required pattern="^.{3,}$">
-    <br>
-    Password (any 6 or more characters)
-    <input type="text" name="password" required pattern="^.{6,}$">
-    <br>
-    <input type="submit" value="Sign up">
-</form>
-{{errormessage}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>invoices</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+</head>
+
+<body>
+
+    <div class="maincontainer">
+        <div id="maincontainercontent">
+            <h3><a href="/login" target="_">Login</a></h3>
+            <h3> Sign up </h3>
+            
+            <form action="/dashboard" method="POST">
+                <br>
+                <input type="text" name="email" placeholder="email" required
+                pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b">
+                <br>
+                <input type="text" name="username" placeholder="username (minumum 3 characters)" required
+                    pattern="^.{3,}$">
+                <br>
+                <input type="text" name="password" placeholder="password (minimum 6 characters)" required
+                    pattern="^.{6,}$">
+                <br>
+                <input type="submit" value="Log in">
+            </form>
+
+            {{errormessage}}
+
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

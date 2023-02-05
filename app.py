@@ -31,12 +31,11 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route("/dashboard", methods=["POST"])
+@app.route("/dashboard", methods=["GET","POST"])
 def dashboard():      
     referralroute = request.referrer
     logged_user = 1000000
-  
-    
+    username = "placeholder"   
     # sign up
     if referralroute[-6:]=="signup":
         username = request.form["username"]
@@ -93,10 +92,10 @@ def dashboard():
     sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user"
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     all_invoices = result.fetchall()      
-    return render_template("dashboard.html", all_invoices=all_invoices)
+    return render_template("dashboard.html", all_invoices=all_invoices, username=username)
 
 
-@app.route("/createinvoice", methods=["POST"])
+@app.route("/createinvoice", methods=["GET","POST"])
 def create_new_invoice():
     return render_template("create_invoice.html")
 

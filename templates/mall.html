@@ -13,25 +13,23 @@
 
 <body>
 
-    <div class="maincontainer">
-        <div id="maincontainercontent">
-            <h3> Login </h3>
-            <h3><a href="/signup" target="_">Sign up</a></h3>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <h2 class="active"> login </h2>
+            <h2><a href="/signup" target="_" class="inactive underlineHover">Sign up</a></h2>
 
             <form action="/dashboard" method="POST">
                 <br>
-                <input type="text" name="username" placeholder="username" required
+                <input type="text" id=login class="fadeIn second" name="username" placeholder="username" required
                     pattern="^.{3,}$">
                 <br>
-                <input type="text" name="password" placeholder="password" required
+                <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" required
                     pattern="^.{6,}$">
                 <br>
-                <input type="submit" value="Log in">
+                <input type="submit" class="fadeIn fourth" value="Log in">
             </form>
 
             {{errormessage}}
-
-
 
 
         </div>

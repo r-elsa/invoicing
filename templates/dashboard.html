@@ -1,19 +1,37 @@
-<p> Welcome {{username}} ! </p>
-<form method="post" action="/createinvoice">
-    <input type="submit" value="Create new invoice" name="create" />
-</form>
-<form action="/">
-    <input type="submit" value="Log out" name="logout" />
-</form>
-{% for invoice in all_invoices %}
-<div class="card">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+    <p id="topleft"> Welcome {{username}}  </p>
+    <div><a href="/createinvoice" target="_" class="fadeIn" id="createinvoice" >Create new invoice</a></div>
+    
+    <div><a href="/login" target="_" class="button white">Log out</a></div>
+    {% for invoice in all_invoices %}
     <div class="container">
-        <p>{{invoice.project_name}}</p>
-        <p>{{invoice.client_name}}</p>
-        <p> {{invoice.due_date}}</p>
-        <p> {{invoice.status}}</p>
-        <p></p>
-        <p></p>
-    </div>
-</div>
-{% endfor %}
+        <div class="square">
+       <div class="h1">{{invoice.project_name}}</div>
+          <p> For client: {{invoice.client_name}}</p>
+          <p> Due date: {{invoice.due_date}}</p>
+          <p> Current status: {{invoice.status}}</p>
+        
+        </div>   
+        </div>  
+      </div>
+    
+    
+    {% endfor %}
+
+
+
+
+    
+</body>
+</html>

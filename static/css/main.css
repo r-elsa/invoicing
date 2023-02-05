@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Open+Sans');
+
+
+html {
+  background-color: #56baed;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+}
+
+
+.maincontainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+}
+
+
+#maincontainercontent {
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+input[type=button], input[type=submit], button  {
+  background-color:#92badd;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  border-radius: 5px 5px 5px 5px;
+  margin: 25px 20px 40px 20px;
+
+}
+input[type=submit]:hover{
+  border: 1px solid #92badd;
+
+  
+} 
+
+input[type=text]/* ,input[type=number],input[type=datetime-local] , input[type=button], textarea */{
+  background-color: #f6f6f6;
+  padding: 15px 35px;
+  text-align: center;
+  font-size: 16px;
+  margin: 5px;
+  width: 60%;
+  border-radius: 5px 5px 5px 5px;
+  border:none;
+  outline:none;
+}
+
+input[type=text]:hover{
+  border: 1px solid #92badd;
+} 
+
+
+
+h3 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  display:inline-block;
+  margin: 40px 8px 10px 8px; 
+  color: #92badd;
+   
+}
+
+a {
+
+  text-decoration: none;
+  color: #92badd;
+  
+}
+
+
+a:hover {
+  text-decoration: underline;
+  
+ 
+  
+}
+
+
+
+
