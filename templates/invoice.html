@@ -2,11 +2,11 @@ Invoice {{ invoice_number }}
 
 {{service}}
 <p>
-Tax value
+    Tax value
 <ul>
-{% for value in taxpercentage %}
-<li> {{ extra }}
-{% endfor %}
+    {% for value in taxpercentage %}
+    <li> {{ extra }}
+        {% endfor %}
 </ul>
 Message <br>
 {{ message }}

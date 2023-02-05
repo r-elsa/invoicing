@@ -1,21 +1,16 @@
-
- <form action="/dashboard" method="POST">
+<form action="/dashboard" method="POST">
     Sign up
-
     <br>
     Email
-    <input type="text" name="email" required pattern ="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b">
+    <input type="text" name="email" required pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b">
     <br>
     <br>
     Username (minimun 3 characters)
-    <input type="text" name="username" required pattern ="^.{3,}$">
+    <input type="text" name="username" required pattern="^.{3,}$">
     <br>
     Password (any 6 or more characters)
-    <input type="text" name="password" required pattern ="^.{6,}$">
+    <input type="text" name="password" required pattern="^.{6,}$">
     <br>
-
-
     <input type="submit" value="Sign up">
-    </form> 
-
-    {{errormessage}}
+</form>
+{{errormessage}}

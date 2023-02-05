@@ -1,64 +1,39 @@
-
-
 <form action="/dashboard" method="POST">
-
   <br>
   New invoice:
   <br>
-
   Project name:
-
   <input type="text" name="project_name">
-
   <br>
-
-    Client name:
-
-    <input type="text" name="client_name">
-
+  Client name:
+  <input type="text" name="client_name">
+  <br>
+  Summary:
+  <input type="text" name="summary">
+  <br>
+  Due date:
+  <input type="datetime-local" name="due_date">
+  <br>
+  Status:
+  <p>
+    <input type="radio" name="status" value="created"> Created
+    <input type="radio" name="status" value="sent"> Sent
+    <input type="radio" name="status" value="paid"> Paid
+  <p>
     <br>
-    Summary:
-
-    <input type="text" name="summary">
-
-    <br>
-    Due date:
- <input type="datetime-local" name="due_date">
-
- <br>
-    Status:
-    <p>
-      <input type="radio" name="status" value="created"> Created
-      <input type="radio" name="status" value="sent"> Sent
-      <input type="radio" name="status" value="paid"> Paid
- 
-      <p>
-
-        <br>
-      Tax percentage:
-    <p>
+    Tax percentage:
+  <p>
     <input type="radio" name="tax_type" value="10"> 10 %
     <input type="radio" name="tax_type" value="14"> 14 %
     <input type="radio" name="tax_type" value="24"> 24%
     <input type="radio" name="tax_type" value="30"> 30%
-
-    <p>
-   
-    
+  <p>
     <br>
     Discount:
-
     <input type="number" step="0.05" name="discount">
-
     <br>
     Comment <br>
     <textarea name="comment" rows="3" cols="50"></textarea>
-    <p>
-    
+  <p>
     <input type="submit" value="Create">
-    </form>
-
-
-
- 
-
+</form>
