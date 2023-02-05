@@ -10,21 +10,28 @@
 </head>
 <body>
 
-    <p id="topleft"> Welcome {{username}}  </p>
-    <div><a href="/createinvoice" target="_" class="fadeIn" id="createinvoice" >Create new invoice</a></div>
+
+
+        <h1> Welcome {{username}}  </h1>
+ 
+    <a href="/createinvoice" id="feature" target="_"  >Create new invoice</a>
     
-    <div><a href="/login" target="_" class="button white">Log out</a></div>
+   <button id ="topright"><a href="/login"  target="_"  >Log out</a></button>
     {% for invoice in all_invoices %}
-    <div class="container">
-        <div class="square">
-       <div class="h1">{{invoice.project_name}}</div>
+
+    
+    
+    
+    
+        <div>
+       <div>{{invoice.project_name}}</div>
           <p> For client: {{invoice.client_name}}</p>
           <p> Due date: {{invoice.due_date}}</p>
           <p> Current status: {{invoice.status}}</p>
         
         </div>   
         </div>  
-      </div>
+  
     
     
     {% endfor %}

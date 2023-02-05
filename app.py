@@ -99,6 +99,7 @@ def dashboard():
 def create_new_invoice():
     return render_template("create_invoice.html")
 
+
 @app.route("/", methods=["POST"])
 def new_invoice():
   
@@ -111,9 +112,8 @@ def new_invoice():
                                             message=message
     )
 
-@app.route("/dashboard/invoice/<int:id>")
-def page3(id):
-    return "This is invoice number " + str(id)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

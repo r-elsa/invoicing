@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>invoices</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-
 <body>
 
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <h2 class="active"> login </h2>
-            <h2><a href="/signup" target="_" class="inactive underlineHover">Sign up</a></h2>
 
-            <form action="/dashboard" method="POST">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+     
+        <form action="/dashboard" method="POST">
+            <br>
+            <input type="text" class="fadeIn second" name="project_name" placeholder="Project name" required>
+            <br>
+
+            <input type="text" class="fadeIn second" name="client_name" placeholder="Name of client" required>
+             <br>
+             <input type="text" class="fadeIn second" name="summary" placeholder="Summary" rows="3" required>
+             <br>
+          
+             <input type="datetime-local" class="fadeIn second" name="due_date" placeholder="Due date" required>
+             <br>
+             <p>Status:</p>
+
+             <p class="fadeIn second">
+              <input type="radio" name="status" value="created" placeholder="Created"> Created
+              <input type="radio" name="status" value="sent" placeholder="Sent"> Sent
+              <input type="radio" name="status" value="paid" placeholder="Paid"> Paid
+            <p>
+
+              <br>
+              <p >Tax percentage:</p>
+              <p class="fadeIn second">
+                <input type="radio" name="tax_type" value="0"> 0 %
+                <input type="radio" name="tax_type" value="10"> 10 %
+                <input type="radio" name="tax_type" value="14"> 14 %
+                <input type="radio" name="tax_type" value="24"> 24%
+                <input type="radio" name="tax_type" value="30"> 30%
+              <p>
                 <br>
-                <input type="text" id=login class="fadeIn second" name="username" placeholder="username" required
-                    pattern="^.{3,}$">
-                <br>
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" required
-                    pattern="^.{6,}$">
-                <br>
-                <input type="submit" class="fadeIn fourth" value="Log in">
-            </form>
+                
+                <input type="number" class="fadeIn second"  name="discount" placeholder="discount">
 
-            {{errormessage}}
+              <br>
+              <textarea name="comment" class="fadeIn second" rows="3" cols="50" placeholder = "Comments"></textarea>
+            
+        
+
+            <br>
+            <input type="submit" value="Create" class="fadeIn second">
+        </form>
 
 
-        </div>
-    </div>
-
+  
 </body>
 </html>
+

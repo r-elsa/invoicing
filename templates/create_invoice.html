@@ -10,33 +10,43 @@
 <body>
 
 
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
+  <div class="maincontainer">
+    <div class="maincontainercontent invoicecreation">
      
   
         <form action="/dashboard" method="POST">
             <br>
-            <input type="text" class="fadeIn second" name="project_name" placeholder="Project name" required>
+            <input type="text" class="" name="project_name" placeholder="Project name" required>
             <br>
 
-            <input type="text" class="fadeIn second" name="client_name" placeholder="Name of client" required>
+            <input type="text" class="" name="client_name" placeholder="Name of client" required>
              <br>
-             <input type="text" class="fadeIn second" name="summary" placeholder="Summary" rows="3" required>
+             <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
+             <br>
+
+             <input type="number"  name="productprice" placeholder="Product price">
+             <br>
+
+             <input type="number"  name="product_amount" placeholder="Amount of products">
+
+
+             <br>
              <br>
           
-             <input type="datetime-local" class="fadeIn second" name="due_date" placeholder="Due date" required>
+             <input type="datetime-local" class="" name="due_date" placeholder="Due date" required>
+             <br>
              <br>
              <p>Status:</p>
 
-             <p class="fadeIn second">
+             <p>
               <input type="radio" name="status" value="created" placeholder="Created"> Created
               <input type="radio" name="status" value="sent" placeholder="Sent"> Sent
               <input type="radio" name="status" value="paid" placeholder="Paid"> Paid
             <p>
 
               <br>
-              <p >Tax percentage:</p>
-              <p class="fadeIn second">
+              <p>Tax ( % ):</p>
+              <p >
                 <input type="radio" name="tax_type" value="0"> 0 %
                 <input type="radio" name="tax_type" value="10"> 10 %
                 <input type="radio" name="tax_type" value="14"> 14 %
@@ -45,15 +55,15 @@
               <p>
                 <br>
                 
-                <input type="number" class="fadeIn second"  name="discount" placeholder="discount">
+                <input type="number"  name="discount" placeholder="Discount ( % )">
 
               <br>
-              <textarea name="comment" class="fadeIn second" rows="3" cols="50" placeholder = "Comments"></textarea>
+              <textarea name="comment"  rows="3" cols="50" placeholder = "Comments"></textarea>
             
         
 
             <br>
-            <input type="submit" value="Create" class="fadeIn second">
+            <input type="submit" value="Create" class="">
         </form>
 
 
