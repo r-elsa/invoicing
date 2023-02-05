@@ -12,6 +12,18 @@
 5) run poetry run flask --debug run
 
 
+## Välipalautus 2 status update:
+The application has a login and signup form.
+The user can create an invoice and it is displayed on the users dashboard.
+The user can log out of the application.
+The application does not yet count the total amount of the invoice/invoices.
+
+
+
+Ahe application does not yet take into account XSS and CSRF.
+The application does not yet use all of the intended tables in the database.
+The user can not yet make changes and/or delete and invoice or sort invoices based on parameters.
+
 
 ## Requirements specification
 
