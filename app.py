@@ -19,10 +19,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
   
-
 @app.route("/")
 def index():
-    db.create_all()
     return redirect('/login')
 
 @app.route("/login")

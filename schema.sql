@@ -1,48 +1,44 @@
-
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE, 
     email TEXT,
     password TEXT
 
-
 );
 
 
-CREATE TABLE IF NOT EXISTS clients (
+CREATE TABLE clients (
     id SERIAL PRIMARY KEY, 
-    name TEXT UNIQUE 
+    client_name TEXT UNIQUE 
  
 );
 
-CREATE TABLE IF NOT EXISTS projects (
+CREATE TABLE projects (
     id SERIAL PRIMARY KEY, 
     name TEXT UNIQUE, 
     description TEXT
 
- 
 );
 
-CREATE TABLE IF NOT EXISTS invoices (
+CREATE TABLE invoices (
     id SERIAL PRIMARY KEY, 
     logged_user INTEGER, 
     description TEXT, 
     project_name TEXT,
     client_name TEXT,
     summary TEXT,
-    raised_date DateTime,
-    due_date DateTime,
+    raised_date TIMESTAMP,
+    due_date TIMESTAMP,
     status TEXT,
     tax_type INTEGER,
     discount FLOAT,
     comment TEXT,
     productprice FLOAT,
-    product_amount INTEGER,
-
+    product_amount INTEGER
  
 );
 
-CREATE TABLE IF NOT EXISTS invoiceitems (
+CREATE TABLE invoiceitems (
     id SERIAL PRIMARY KEY, 
     description TEXT,
     price_per_unit FLOAT,
@@ -50,7 +46,7 @@ CREATE TABLE IF NOT EXISTS invoiceitems (
 
 );
 
-CREATE TABLE IF NOT EXISTS taxtypes (
+CREATE TABLE taxtypes (
     id SERIAL PRIMARY KEY, 
     name TEXT,
     percentage FLOAT,
@@ -58,7 +54,7 @@ CREATE TABLE IF NOT EXISTS taxtypes (
 
 );
 
-CREATE TABLE IF NOT EXISTS payments (
+CREATE TABLE payments (
     id SERIAL PRIMARY KEY, 
     bank_name TEXT,
     bank_branch TEXT,

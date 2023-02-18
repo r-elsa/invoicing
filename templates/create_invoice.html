@@ -24,10 +24,10 @@
              <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
              <br>
 
-             <input type="number"  name="productprice" placeholder="Product price">
+             <input type="number"  name="productprice" placeholder="Product price" required>
              <br>
 
-             <input type="number"  name="product_amount" placeholder="Amount of products">
+             <input type="number"  name="product_amount" placeholder="Amount of products" required>
 
 
              <br>
@@ -39,26 +39,26 @@
              <p>Status:</p>
 
              <p>
-              <input type="radio" name="status" value="created" placeholder="Created"> Created
-              <input type="radio" name="status" value="sent" placeholder="Sent"> Sent
-              <input type="radio" name="status" value="paid" placeholder="Paid"> Paid
+              <input type="radio" name="status" value="created" placeholder="Created" checked> Created
+              <input type="radio" name="status" value="sent" placeholder="Sent" checked> Sent
+              <input type="radio" name="status" value="paid" placeholder="Paid" checked> Paid
             <p>
 
               <br>
               <p>Tax ( % ):</p>
               <p >
-                <input type="radio" name="tax_type" value="0"> 0 %
-                <input type="radio" name="tax_type" value="10"> 10 %
-                <input type="radio" name="tax_type" value="14"> 14 %
-                <input type="radio" name="tax_type" value="24"> 24%
-                <input type="radio" name="tax_type" value="30"> 30%
+                <input type="radio" name="tax_type" value="0" checked> 0 %
+                <input type="radio" name="tax_type" value="10" checked> 10 %
+                <input type="radio" name="tax_type" value="14" checked> 14 %
+                <input type="radio" name="tax_type" value="24" checked> 24%
+                <input type="radio" name="tax_type" value="30" checked> 30%
               <p>
                 <br>
                 
-                <input type="number"  name="discount" placeholder="Discount ( % )">
+                <input type="number"  name="discount" placeholder="Discount ( % )" required>
 
               <br>
-              <textarea name="comment"  rows="3" cols="50" placeholder = "Comments"></textarea>
+              <textarea name="comment"  rows="3" cols="50" placeholder = "Comments" required></textarea>
             
         
 
