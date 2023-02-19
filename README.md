@@ -5,11 +5,12 @@
 
 1) create database and ensure that postgres is running (e.g. "sudo service postgresql start" on linux) 
 2) write database address and secret key to .env file
-3) install poetry if you don't already have it installed
+3) install poetry if you don't already have it installed already. I acknowledge that poetry is not part of the course material, yet a useful technology.
     https://ohjelmistotekniikka-hy.github.io/python/viikko2#poetry-ja-riippuvuuksien-hallinta
 
-4) run poetry shell (inside project folder)
-5) run poetry run flask --debug run
+4) >poetry shell (inside project folder)
+5) create tables (e.g. "sudo -u <user> -d <nameofdatabase> -f schema.sql -p <port>" on linux)
+6) >poetry run flask --debug run
 
 
 ## Välipalautus 2 status update:
@@ -18,12 +19,17 @@ The user can create an invoice and it is displayed on the users dashboard.
 The user can log out of the application.
 The application does not yet count the total amount of the invoice/invoices.
 
-
-
-Ahe application does not yet take into account XSS and CSRF.
+The application does not yet take into account XSS and CSRF.
 The application does not yet use all of the intended tables in the database.
 The user can not yet make changes and/or delete and invoice or sort invoices based on parameters.
 
+
+## Välipalautus 3 status update:
+The application does not use ORM -techniques anymore, as per request. The application is now divided to different files -  app, db and routes. The application does now use 5 tables - users, invoices, clients, projects and products. The UI is improved for the dashboard. 
+
+The application does not yet take into account XSS and CSRF.
+The user can not yet modify and/or delete an invoice or sort invoices based on parameters.
+Currently it is only possible to add one product to an invoice, this will be improved to the next due date. 
 
 ## Requirements specification
 
