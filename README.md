@@ -25,6 +25,13 @@ The application does not yet use all of the intended tables in the database.
 The user can not yet make changes and/or delete and invoice or sort invoices based on parameters.
 
 
+## Välipalautus 3 status update:
+The application does not use ORM -techniques anymore, as per request. The application is now divided to different files -  app, db and routes. The application does now use 5 tables - users, invoices, clients, projects and products. The UI is improved for the dashboard. 
+
+The application does not yet take into account XSS and CSRF.
+The user can not yet modify and/or delete an invoice or sort invoices based on parameters.
+Currently it is only possible to add one product to an invoice, this will be improved to the next due date. 
+
 ## Requirements specification
 
 ### Purpose of the application
