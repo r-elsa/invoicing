@@ -12,9 +12,10 @@
 
   <div class="maincontainer">
     <div class="maincontainercontent invoicecreation">
+      <h2> Add product</h2>
      
   
-        <form action="/dashboard" method="POST">
+        <form action="/createinvoice" method="POST">
             <br>
             <input type="text"  name="name" placeholder="Item name" required>
             <br>
@@ -22,11 +23,9 @@
             <textarea  name="description" placeholder="Description of item" required></textarea>
              <br>
            
-
              <input type="float"  name="priceperunit" placeholder="Price per unit" required>
              <br>
         
-
             <br>
             <input type="submit" value="Add" class="">
         </form>

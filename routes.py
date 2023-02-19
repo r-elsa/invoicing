@@ -9,6 +9,7 @@ import users
 import invoices
 import products
 import clients
+import projects
 
   
 @app.route("/")
@@ -88,11 +89,10 @@ def dashboard():
             tax_type = request.form["tax_type"] 
             discount = request.form["discount"]
             comment = request.form["comment"]
-            productprice = float(request.form["productprice"])
+        
             product_amount = int(request.form["product_amount"])
 
-            invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, productprice, product_amount)
-
+            invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount)
 
 
         elif referralroute[-10:]=="addproduct":
@@ -114,6 +114,13 @@ def dashboard():
             user_id = session["logged_user"]
             clients.add_client(client_name,client_phone,client_email, client_description, user_id)
         
+        elif referralroute[-10:]=="addproject":
+            user_id = session["logged_user"]
+            project_name =  request.form["name"] 
+            project_description =  request.form["description"] 
+     
+            projects.add_project(project_name, project_description, user_id)
+        
 
 
 
@@ -121,22 +128,61 @@ def dashboard():
     all_invoices = invoices.return_all(logged_user)
 
 
-    if len(all_invoices)==0:
-        noinvoices = True
+   
     
 
     if error == True:
         return render_template(returntemplate, error_message = error_message)
     else:
+        if len(all_invoices)==0:
+            noinvoices = True
         return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices)
 
 
-@app.route("/createinvoice", methods=["GET"])
+
+
+@app.route("/createinvoice", methods=["GET", "POST"])
 def create_new_invoice():
+
+    if request.method == "POST":
+        referralroute = request.referrer
+        if referralroute[-10:]=="addproduct":
+            invoice = None
+            user_id = session["logged_user"]
+            product_name = request.form["name"]  
+            description = request.form["description"] 
+            priceperunit = request.form["priceperunit"]
+            amount = 0
+            products.add_product(invoice,user_id,product_name,description,priceperunit,amount)
+        
+
+        elif referralroute[-9:]=="addclient":
+            client_name =  request.form["name"] 
+            client_phone =  request.form["phone"] 
+            client_email =  request.form["email"] 
+            client_description =  request.form["description"] 
+            user_id = session["logged_user"]
+            clients.add_client(client_name,client_phone,client_email, client_description, user_id)
+        
+        elif referralroute[-10:]=="addproject":
+            user_id = session["logged_user"]
+            project_name =  request.form["name"] 
+            project_description =  request.form["description"] 
+     
+            projects.add_project(project_name, project_description, user_id)
+
+
+
     logged_user = session["logged_user"] 
     all_products = products.return_all(logged_user)
+    if len(all_products)==0:
+        noproducts=True
     all_clients = clients.return_all(logged_user)
-    return render_template("create_invoice.html", products = all_products, clients = all_clients)
+    all_projects = projects.return_all(logged_user)
+    
+    
+    
+    return render_template("create_invoice.html", products = all_products, clients = all_clients, projects = all_projects)
 
  
 
@@ -146,8 +192,12 @@ def add_new_product():
 
 
 @app.route("/addclient", methods=["GET"])
-def add_new_clients():
-    return render_template("add_client.html") 
+def add_new_client():
+    return render_template("add_client.html", action ="createinvoice") 
+
+@app.route("/addproject", methods=["GET"])
+def add_new_project():
+    return render_template("add_project.html") 
 
 
 

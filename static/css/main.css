@@ -27,7 +27,7 @@ body {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 450px;
+  max-width: 600px;
   position: relative;
   padding: 0px;
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -47,6 +47,11 @@ input[type=button], input[type=submit], button  {
   margin: 25px 20px 40px 20px;
 
 }
+
+
+
+
+
 input[type=submit]:hover{
   border: 1px solid #92badd;
 
@@ -112,34 +117,36 @@ h1 {
 }
 
 
-
-
 .feature{
     top:4vw;
     position:fixed;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     color:white;
     padding-left:30%;
           
 }
 
 .one{
-  padding-left:30%;
+  padding-left:25%;
         
 }
 .two{
-  padding-left:50%;
+  padding-left:40%;
         
 }
 .three{
-  padding-left:70%;
+  padding-left:50%;
+        
+}
+.four{
+  padding-left:60%;
         
 }
 
-
 #invoicecreation {
   padding: 10vw;
+  width: 60vw;
 }
 
 

@@ -19,8 +19,9 @@ CREATE TABLE users (
 
 CREATE TABLE projects (
     id SERIAL PRIMARY KEY, 
-    project_name TEXT UNIQUE, 
-    project_description TEXT
+    name TEXT UNIQUE, 
+    description TEXT,
+    user_id INTEGER
 
 );
 
@@ -37,7 +38,6 @@ CREATE TABLE invoices (
     tax_type INTEGER,
     discount FLOAT,
     comment TEXT,
-    productprice FLOAT,
     product_amount INTEGER
  
 );
