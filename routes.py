@@ -8,6 +8,7 @@ from db import db
 import users
 import invoices
 import products
+import clients
 
   
 @app.route("/")
@@ -92,7 +93,7 @@ def dashboard():
 
             invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, productprice, product_amount)
 
- 
+
 
         elif referralroute[-10:]=="addproduct":
          
@@ -102,8 +103,19 @@ def dashboard():
             description = request.form["description"] 
             priceperunit = request.form["priceperunit"]
             amount = 0
-    
             products.add_product(invoice,user_id,product_name,description,priceperunit,amount)
+        
+
+        elif referralroute[-9:]=="addclient":
+            client_name =  request.form["name"] 
+            client_phone =  request.form["phone"] 
+            client_email =  request.form["email"] 
+            client_description =  request.form["description"] 
+            user_id = session["logged_user"]
+            clients.add_client(client_name,client_phone,client_email, client_description, user_id)
+        
+
+
 
     logged_user = session["logged_user"] 
     all_invoices = invoices.return_all(logged_user)
@@ -123,7 +135,8 @@ def dashboard():
 def create_new_invoice():
     logged_user = session["logged_user"] 
     all_products = products.return_all(logged_user)
-    return render_template("create_invoice.html", products = all_products)
+    all_clients = clients.return_all(logged_user)
+    return render_template("create_invoice.html", products = all_products, clients = all_clients)
 
  
 
@@ -132,7 +145,7 @@ def add_new_product():
     return render_template("add_product.html")
 
 
-@app.route("/addclients", methods=["GET"])
+@app.route("/addclient", methods=["GET"])
 def add_new_clients():
     return render_template("add_client.html") 
 

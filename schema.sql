@@ -6,10 +6,14 @@ CREATE TABLE users (
 
 );
 
+    CREATE TABLE clients (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE,
+    phone TEXT,
+    email TEXT,
+    description TEXT,
+    user_id INTEGER
 
-CREATE TABLE clients (
-    id SERIAL PRIMARY KEY, 
-    client_name TEXT UNIQUE 
  
 );
 

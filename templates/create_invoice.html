@@ -19,12 +19,17 @@
             <input type="text" class="" name="project_name" placeholder="Project name" required>
             <br>
 
-            <input type="text" class="" name="client_name" placeholder="Name of client" required>
-             <br>
-             <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
-             <br>
+            Select client <SELECT name="client_name" required>
+              {% for client in clients %}
+                  <OPTION value={{client.name}}>{{client.name}}</option>
+              {% endfor %}
+              </SELECT>
 
-             Select product<SELECT name="product">
+        
+             <br>
+           
+
+             Select product<SELECT name="product" required>
               {% for product in products %}
                   <OPTION value={{product.id}}>{{product.name}}</option>
               {% endfor %}
@@ -35,14 +40,16 @@
 
 
 
-             <input type="number"  name="productprice" placeholder="Product price" required>
+             <input type="number"  name="productprice" placeholder="Product price" min="0" required>
              <br>
 
-             <input type="number"  name="product_amount" placeholder="Amount of products" required>
+             <input type="number"  name="product_amount" placeholder="Amount of products" min="0" required>
 
 
              <br>
+             <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
              <br>
+             
           
              <input type="datetime-local" class="" name="due_date" placeholder="Due date" required>
              <br>
@@ -66,7 +73,7 @@
               <p>
                 <br>
                 
-                <input type="number"  name="discount" placeholder="Discount ( % )" required>
+                <input type="number"  name="discount" placeholder="Discount ( % )" min="0" required>
 
               <br>
               <textarea name="comment"  rows="3" cols="50" placeholder = "Comments" required></textarea>

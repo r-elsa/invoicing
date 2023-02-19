@@ -53,7 +53,7 @@ input[type=submit]:hover{
   
 } 
 
-input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea, input[type=float] {
+input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea, select {
   background-color: #f6f6f6;
   padding: 15px 35px;
   text-align: center;
