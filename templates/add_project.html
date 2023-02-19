@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add project</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
+
 <body>
 
+    <div class="maincontainer">
+        <div class="maincontainercontent invoicecreation">
 
-  <div class="maincontainer">
-    <div class="maincontainercontent invoicecreation">
+            <h2> Add project</h2>
 
-        <h2> Add project</h2>
-     
-        <form action="/createinvoice" method="POST">
-            <br>
-            <input type="text"  name="name" placeholder="Project name" required>
-            <br>
+            <form action="/createinvoice" method="POST">
+                <br>
+                <input type="text" name="name" placeholder="Project name" required>
+                <br>
 
-            <textarea  name="description" placeholder="Project despcription" required></textarea>
-             <br>
-           
-    
-            <input type="submit" value="Add" class="">
-        </form>
+                <textarea name="description" placeholder="Project despcription" required></textarea>
+                <br>
 
 
-  
+                <input type="submit" value="Add" class="">
+            </form>
+
 </body>
+
 </html>
 
 

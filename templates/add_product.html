@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,30 +8,29 @@
   <title>Document</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<body>
 
+<body>
 
   <div class="maincontainer">
     <div class="maincontainercontent invoicecreation">
       <h2> Add product</h2>
-     
-  
-        <form action="/createinvoice" method="POST">
-            <br>
-            <input type="text"  name="name" placeholder="Item name" required>
-            <br>
-
-            <textarea  name="description" placeholder="Description of item" required></textarea>
-             <br>
-           
-             <input type="float"  name="priceperunit" placeholder="Price per unit" required>
-             <br>
-        
-            <br>
-            <input type="submit" value="Add" class="">
-        </form>
 
 
-  
+      <form action="/createinvoice" method="POST">
+        <br>
+        <input type="text" name="name" placeholder="Item name" required>
+        <br>
+
+        <textarea name="description" placeholder="Description of item" required></textarea>
+        <br>
+
+        <input type="float" name="priceperunit" placeholder="Price per unit" required>
+        <br>
+
+        <br>
+        <input type="submit" value="Add" class="">
+      </form>
+
 </body>
+
 </html>

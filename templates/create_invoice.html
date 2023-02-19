@@ -17,7 +17,6 @@
 
       <h2> Create invoice</h2>
 
-
       <form action="/dashboard" method="POST">
 
         <br>Select project<SELECT name="project_name" required>
@@ -33,7 +32,7 @@
           <OPTION value={{client.name}}>{{client.name}}</option>
           {% endfor %}
         </SELECT><br>
-        <a href="/addclient" target="_">OR Add client</a> 
+        <a href="/addclient" target="_">OR Add client</a>
 
 
         <br>Select product<SELECT name="product" required>
@@ -46,14 +45,11 @@
         <br>
         <br>
 
-
         <input type="number" name="product_amount" placeholder="Amount of selected product" min="0" required>
-
 
         <br>
         <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
         <br>
-
 
         <input type="datetime-local" class="" name="due_date" placeholder="Due date" required>
         <br>
@@ -76,13 +72,10 @@
           <input type="radio" name="tax_type" value="30"> 30%
         <p>
           <br>
-
           <input type="number" name="discount" placeholder="Discount ( % )" min="0" required>
 
           <br>
           <textarea name="comment" rows="3" cols="50" placeholder="Comments" required></textarea>
-
-
 
           <br>
           <input type="submit" value="Create" class="">

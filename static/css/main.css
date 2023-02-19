@@ -10,7 +10,6 @@ body {
   height: 100vh;
 }
 
-
 .maincontainer {
   display: flex;
   align-items: center;
@@ -20,7 +19,6 @@ body {
   min-height: 100%;
   padding: 20px;
 }
-
 
 .maincontainercontent {
   border-radius: 10px 10px 10px 10px;
@@ -49,13 +47,8 @@ input[type=button], input[type=submit], button  {
 }
 
 
-
-
-
 input[type=submit]:hover{
   border: 1px solid #92badd;
-
-  
 } 
 
 input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea, select {
@@ -74,8 +67,6 @@ input[type=text] ,input[type=number],input[type=datetime-local] , input[type=but
 input[type=text]:hover{
   border: 1px solid #92badd;
 } 
-
-
 
 h3 {
   text-align: center;
@@ -105,8 +96,6 @@ h1 {
   color:white;
 }
 
-
-
 #topright{
     right:0;
     top:0;
@@ -115,7 +104,6 @@ h1 {
     color:#92badd;
 
 }
-
 
 .feature{
     top:4vw;

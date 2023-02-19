@@ -37,13 +37,10 @@ def dashboard():
     noinvoices = False
 
     if request.method == "POST":
-    # sign up
         if referralroute[-6:]=="signup":
             username = request.form["username"]
             password = request.form["password"]
             email = request.form["email"]
-
-            #if username alredy taken
         
             soughtuser = users.check_signup(username)
             
@@ -51,17 +48,13 @@ def dashboard():
                 error = True
                 returntemplate = "signup.html"
                 error_message = "Username already taken"
-            #username not taken"
-            else:     
-                
+          
+            else:       
                 users.create_user(username,email,password)
-
                 logged_user = users.get_user_id(username)
                 session["logged_user"] = logged_user
             
 
-    
-    #login
         elif referralroute[-5:]=="login":
             username = request.form["username"]
             password = request.form["password"]
@@ -76,10 +69,9 @@ def dashboard():
                 logged_user = soughtuser[0][0]
                 session["logged_user"] = logged_user
 
-    # create invoice
+   
         elif referralroute[-13:]=="createinvoice":
             logged_user=session["logged_user"]
-
             project_name = request.form["project_name"]  
             client_name = request.form["client_name"] 
             summary = request.form["summary"]
@@ -91,12 +83,10 @@ def dashboard():
             comment = request.form["comment"]
         
             product_amount = int(request.form["product_amount"])
-
             invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount)
 
 
         elif referralroute[-10:]=="addproduct":
-         
             invoice = None
             user_id = session["logged_user"]
             product_name = request.form["name"]  
@@ -118,18 +108,12 @@ def dashboard():
             user_id = session["logged_user"]
             project_name =  request.form["name"] 
             project_description =  request.form["description"] 
-     
             projects.add_project(project_name, project_description, user_id)
         
-
-
 
     logged_user = session["logged_user"] 
     all_invoices = invoices.return_all(logged_user)
 
-
-   
-    
 
     if error == True:
         return render_template(returntemplate, error_message = error_message)
@@ -137,9 +121,6 @@ def dashboard():
         if len(all_invoices)==0:
             noinvoices = True
         return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices)
-
-
-
 
 @app.route("/createinvoice", methods=["GET", "POST"])
 def create_new_invoice():
@@ -198,8 +179,6 @@ def add_new_client():
 @app.route("/addproject", methods=["GET"])
 def add_new_project():
     return render_template("add_project.html") 
-
-
 
 @app.route("/logout")
 def logout():
