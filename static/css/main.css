@@ -53,7 +53,7 @@ input[type=submit]:hover{
   
 } 
 
-input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea {
+input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea, input[type=float] {
   background-color: #f6f6f6;
   padding: 15px 35px;
   text-align: center;
@@ -111,20 +111,30 @@ h1 {
 
 }
 
-.grid-container {
-  display: inline-grid;
-}
 
 
-#feature{
+
+.feature{
     top:4vw;
     position:fixed;
     font-weight: 600;
     font-size: 18px;
     color:white;
-    left:30%
- 
-  
+    padding-left:30%;
+          
+}
+
+.one{
+  padding-left:30%;
+        
+}
+.two{
+  padding-left:50%;
+        
+}
+.three{
+  padding-left:70%;
+        
 }
 
 
@@ -156,3 +166,28 @@ h1 {
 }
 
 
+table {
+  border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  box-shadow: 0 10px 30px 0;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px; 
+  border: none;
+  color: white;
+  padding: 15px 80px;
+
+  font-size: 14px;
+  margin: 25px 20px 40px 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #69aae3;
+}
+
+tbody tr:nth-child(odd) {
+  background-color:#8ac2f3;
+}

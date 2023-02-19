@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New customer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+
+  <div class="maincontainer">
+    <div class="maincontainercontent invoicecreation">
+     
+  
+        <form action="/dashboard" method="POST">
+            <br>
+            <input type="text"  name="name" placeholder="Name of customer" required>
+            <br>
+
+            <input type="text"  name="name" placeholder="Customer ID " required>
+            <br>
+
+
+
+            <textarea  name="description" placeholder="Description of item" required></textarea>
+             <br>
+           
+
+             <input type="float"  name="priceperunit" placeholder="Price per unit" required>
+             <br>
+        
+
+            <br>
+            <input type="submit" value="Create" class="">
+        </form>
+
+
+  
+</body>
+</html>

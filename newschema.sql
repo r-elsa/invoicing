@@ -15,33 +15,31 @@ CREATE TABLE clients (
 
 CREATE TABLE projects (
     id SERIAL PRIMARY KEY, 
-    project_name TEXT UNIQUE, 
-    project_description TEXT
+    name TEXT UNIQUE, 
+    description TEXT
 
 );
 
 CREATE TABLE invoices (
     id SERIAL PRIMARY KEY, 
-    logged_user INTEGER, 
+    logged_user INTEGER REFERENCES users ON DELETE CASCADE, 
     description TEXT, 
-    project_name TEXT,
-    client_name TEXT,
+    project_name TEXT REFERENCES projects ON DELETE CASCADE, 
+    client_name TEXT REFERENCES clients ON DELETE CASCADE, 
     summary TEXT,
     raised_date TIMESTAMP,
     due_date TIMESTAMP,
-    invoice_status TEXT,
-    tax_type INTEGER,
+    status TEXT,
+    tax_type INTEGER REFERENCES taxtypes ON DELETE CASCADE,
     discount FLOAT,
     comment TEXT,
-    productprice FLOAT,
-    product_amount INTEGER
+    invoiceitem INTEGER RERERENCES invoiceitems ON DELETE CASCADE
+
  
 );
 
 CREATE TABLE invoiceitems (
     id SERIAL PRIMARY KEY, 
-    invoice INTEGER REFERENCES invoices,
-    name TEXT,
     description TEXT,
     price_per_unit FLOAT,
     amount INTEGER
@@ -50,8 +48,8 @@ CREATE TABLE invoiceitems (
 
 CREATE TABLE taxtypes (
     id SERIAL PRIMARY KEY, 
-    tax_name TEXT,
-    tax_percentage FLOAT,
+    name TEXT,
+    percentage FLOAT,
     comment TEXT
 
 );
@@ -64,6 +62,5 @@ CREATE TABLE payments (
     comment TEXT
   
 );
-
 
 

@@ -61,6 +61,9 @@ def dashboard():
         elif referralroute[-5:]=="login":
             username = request.form["username"]
             password = request.form["password"]
+
+            username = "meme"
+            password ="mememe"
             
             soughtuser = users.check_login(username,password)
             if (len(soughtuser)) == 0:
@@ -100,9 +103,26 @@ def dashboard():
         return render_template("dashboard.html", all_invoices=all_invoices, username=username)
 
 
-@app.route("/createinvoice", methods=["GET","POST"])
+@app.route("/createinvoice", methods=["GET"])
 def create_new_invoice():
     return render_template("create_invoice.html")
+
+
+@app.route("/products", methods=["GET"])
+def view_products():
+    return render_template("products.html")
+
+
+@app.route("/createproduct", methods=["GET"])
+def create_new_product():
+    return render_template("create_product.html")
+
+
+@app.route("/clients", methods=["GET"])
+def view_clients():
+    return render_template("clients.html") 
+
+
 
 
 

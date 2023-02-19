@@ -27,3 +27,4 @@ def get_user_id(username):
     sql = "SELECT id FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
     logged_user= result.fetchall()[0][0]
+    return logged_user

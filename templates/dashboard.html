@@ -12,31 +12,39 @@
 
 
         <h1> Welcome {{username}}  </h1>
-        
- 
-    <a href="/createinvoice" id="feature" target="_"  >Create new invoice</a>
-    <!-- <a href="/createproduct" id="feature" target="_"  >Create product</a>
-    <a href="/createinvoiceitem" id="feature" target="_"  >Create new invoiceitem</a> -->
 
-
+        <a href="/clients" class="feature three" target="_"  > View clients</a>
+        <a href="/products" class="feature two" target="_"  > View products</a>
+        <a href="/createinvoice" class="feature one" target="_"  > Create new invoice</a>
+        <!-- <a href="/createinvoiceitem" class="feature one" target="_"  > Create new invoiceitem</a>  -->
     
-   <button id ="topright"><a href="/logout"  target="_"  >Log out</a></button>
+        <button id ="topright"><a href="/logout"  target="_"  >Log out</a></button>
+   <table>
+    <tr>
+        <th>Invoice number</th>
+        <th>Project</th>
+        <th>Client</th>
+        <th>Due date</th>
+        <th>Status</th>
+
+      </tr>
     {% for invoice in all_invoices %}
 
-    
-    
-        <div class = "grid-container">
-       <div> Project name:{{invoice.project_name}}
-          <p> For client: {{invoice.client_name}}</p>
-          <p> Due date: {{invoice.due_date}}</p>
-          <p> Current status: {{invoice.status}}</p>
+
         
-        </div>   
-        </div>  
+        <tr>
+            <th> {{invoice.id}}</th>
+            <th>{{invoice.project_name}}</th>
+            <th>{{invoice.client_name}}</th>
+            <th>{{invoice.due_date}}</th>
+            <th>{{invoice.status}}</th>
+          </tr>
+
   
     
     
     {% endfor %}
+</table>
 
 
 
