@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from db import db
 import users
 import invoices
+import products
 
   
 @app.route("/")
@@ -18,7 +19,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/signup",  methods=["POST"])
+@app.route("/signup",  methods=["GET"])
 def signup():
     return render_template("signup.html")
 
@@ -31,6 +32,7 @@ def dashboard():
     error = False 
     returntemplate = ""
     error_message = ""  
+    noinvoices = False
 
     if request.method == "POST":
     # sign up
@@ -61,9 +63,6 @@ def dashboard():
         elif referralroute[-5:]=="login":
             username = request.form["username"]
             password = request.form["password"]
-
-            username = "meme"
-            password ="mememe"
             
             soughtuser = users.check_login(username,password)
             if (len(soughtuser)) == 0:
@@ -95,34 +94,47 @@ def dashboard():
 
  
 
+        elif referralroute[-10:]=="addproduct":
+         
+            invoice = None
+            user_id = session["logged_user"]
+            product_name = request.form["name"]  
+            description = request.form["description"] 
+            priceperunit = request.form["priceperunit"]
+            amount = 0
+    
+            products.add_product(invoice,user_id,product_name,description,priceperunit,amount)
+
+    logged_user = session["logged_user"] 
     all_invoices = invoices.return_all(logged_user)
+
+
+    if len(all_invoices)==0:
+        noinvoices = True
+    
 
     if error == True:
         return render_template(returntemplate, error_message = error_message)
     else:
-        return render_template("dashboard.html", all_invoices=all_invoices, username=username)
+        return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices)
 
 
 @app.route("/createinvoice", methods=["GET"])
 def create_new_invoice():
-    return render_template("create_invoice.html")
+    logged_user = session["logged_user"] 
+    all_products = products.return_all(logged_user)
+    return render_template("create_invoice.html", products = all_products)
+
+ 
+
+@app.route("/addproduct", methods=["GET", "POST"])
+def add_new_product():
+    return render_template("add_product.html")
 
 
-@app.route("/products", methods=["GET"])
-def view_products():
-    return render_template("products.html")
-
-
-@app.route("/createproduct", methods=["GET"])
-def create_new_product():
-    return render_template("create_product.html")
-
-
-@app.route("/clients", methods=["GET"])
-def view_clients():
-    return render_template("clients.html") 
-
-
+@app.route("/addclients", methods=["GET"])
+def add_new_clients():
+    return render_template("add_client.html") 
 
 
 

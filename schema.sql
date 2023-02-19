@@ -29,7 +29,7 @@ CREATE TABLE invoices (
     summary TEXT,
     raised_date TIMESTAMP,
     due_date TIMESTAMP,
-    invoice_status TEXT,
+    status TEXT,
     tax_type INTEGER,
     discount FLOAT,
     comment TEXT,
@@ -38,9 +38,10 @@ CREATE TABLE invoices (
  
 );
 
-CREATE TABLE invoiceitems (
+CREATE TABLE products (
     id SERIAL PRIMARY KEY, 
     invoice INTEGER REFERENCES invoices,
+    user_id INTEGER REFERENCES users,
     name TEXT,
     description TEXT,
     price_per_unit FLOAT,

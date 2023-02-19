@@ -24,6 +24,17 @@
              <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
              <br>
 
+             Select product<SELECT name="product">
+              {% for product in products %}
+                  <OPTION value={{product.id}}>{{product.name}}</option>
+              {% endfor %}
+              </SELECT>
+
+
+              <br>
+
+
+
              <input type="number"  name="productprice" placeholder="Product price" required>
              <br>
 
