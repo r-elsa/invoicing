@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% block title %}add client{% endblock %}
+{% block content %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New customer</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
 
-<body>
+
   <button id ="topright"><a href="/dashboard"  target="_"  >To dashboard</a></button>
 
   <div class="maincontainer">
-    <div class="maincontainercontent invoicecreation">
+    <div class="maincontainercontent">
 
       <h2> Add client </h2>
     
@@ -34,9 +28,8 @@
         <input type="submit" value="Add" class="">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       </form>
+      </div>
+    </div>
 
 
-
-</body>
-
-</html>
+      {% endblock %}
