@@ -59,14 +59,13 @@ def dashboard():
             username = request.form["username"]
             password = request.form["password"]
             
-            soughtuser = users.check_login(username,password)
-            if (len(soughtuser)) == 0:
+            (soughtuser, logged_user) = users.check_login(username,password)
+            if not soughtuser:
                 error = True
                 returntemplate = "login.html"
                 error_message = "Wrong username or password"
             
             else:
-                logged_user = soughtuser[0][0]
                 session["logged_user"] = logged_user
 
    
@@ -110,7 +109,7 @@ def dashboard():
             project_description =  request.form["description"] 
             projects.add_project(project_name, project_description, user_id)
         
-
+    
     logged_user = session["logged_user"] 
     all_invoices = invoices.return_all(logged_user)
 

@@ -12,6 +12,7 @@ flask-sqlalchemy = "^3.0.2"
 psycopg2-binary = "^2.9.5"
 flask-migrate = "^4.0.3"
 python-dotenv = "^0.21.1"
+werkzeug = "^2.2.3"
 
 
 [build-system]

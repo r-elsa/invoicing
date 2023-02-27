@@ -2,13 +2,26 @@ from db import db
 from app import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def check_login(username,password):
-    sql = "SELECT id, email FROM users WHERE username LIKE :username AND password LIKE :password"
-    result = db.session.execute(text(sql), {"username":"%"+username+"%", "password":"%"+password+"%"})
-    soughtuser = result.fetchall()
-    return soughtuser
+    sql = "SELECT id, username, password FROM users WHERE username LIKE :username"
+    result = db.session.execute(text(sql), {"username":"%"+username+"%"})
+    user = result.fetchone()
+ 
+      
+    if not user:
+        return (False, 1000)
+    else:
+        if check_password_hash(user[2], password):
+            return (True,user[0])
+        else:
+            return (False, 1000)
+   
+   
+     
+
 
 def check_signup(username):
     sql = "SELECT id, username FROM users WHERE username LIKE :username"
@@ -18,8 +31,9 @@ def check_signup(username):
 
 
 def create_user(username,email,password):
+    password_hashed = generate_password_hash(password)
     sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"
-    db.session.execute(text(sql), {"username":username, "email":email,"password":password})
+    db.session.execute(text(sql), {"username":username, "email":email,"password":password_hashed})
     db.session.commit()
 
 
