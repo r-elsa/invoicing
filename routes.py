@@ -1,9 +1,10 @@
 from app import app
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from datetime import datetime, timezone
+import secrets
 from db import db
 import users
 import invoices
@@ -38,6 +39,7 @@ def dashboard():
 
     if request.method == "POST":
         if referralroute[-6:]=="signup":
+            session["csrf_token"] = secrets.token_hex(16)
             username = request.form["username"]
             password = request.form["password"]
             email = request.form["email"]
@@ -56,6 +58,7 @@ def dashboard():
             
 
         elif referralroute[-5:]=="login":
+            session["csrf_token"] = secrets.token_hex(16)
             username = request.form["username"]
             password = request.form["password"]
             
@@ -70,6 +73,8 @@ def dashboard():
 
    
         elif referralroute[-13:]=="createinvoice":
+            if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
             logged_user=session["logged_user"]
             project_name = request.form["project_name"]  
             client_name = request.form["client_name"] 
@@ -123,8 +128,10 @@ def dashboard():
 
 @app.route("/createinvoice", methods=["GET", "POST"])
 def create_new_invoice():
-
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
+
         referralroute = request.referrer
         if referralroute[-10:]=="addproduct":
             invoice = None

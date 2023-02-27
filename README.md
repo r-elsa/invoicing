@@ -7,7 +7,7 @@
 2) write database address and secret key to .env file
 3) install poetry if you don't already have it installed already. I acknowledge that poetry is not part of the course material, yet a useful technology.
     https://ohjelmistotekniikka-hy.github.io/python/viikko2#poetry-ja-riippuvuuksien-hallinta
-
+3) >poetry install
 4) >poetry shell (inside project folder)
 5) create tables (e.g. "sudo -u <user> -d <nameofdatabase> -f schema.sql -p <port>" on linux)
 6) >poetry run flask --debug run

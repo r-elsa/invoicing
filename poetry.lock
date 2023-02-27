@@ -35,6 +35,17 @@ optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
 [[package]]
+name = "configobj"
+version = "5.0.8"
+description = "Config file reading, writing and validation."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[package.dependencies]
+six = "*"
+
+[[package]]
 name = "flask"
 version = "2.2.2"
 description = "A simple framework for building complex web applications."
@@ -77,6 +88,14 @@ python-versions = ">=3.7"
 [package.dependencies]
 Flask = ">=2.2"
 SQLAlchemy = ">=1.4.18"
+
+[[package]]
+name = "future"
+version = "0.18.3"
+description = "Clean single-source support for Python 3 and 2"
+category = "main"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "greenlet"
@@ -176,6 +195,25 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "pyasn1"
+version = "0.4.8"
+description = "ASN.1 types and codecs"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "pyasn1-modules"
+version = "0.2.8"
+description = "A collection of ASN.1-based protocols modules."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pyasn1 = ">=0.4.6,<0.5.0"
+
+[[package]]
 name = "python-dotenv"
 version = "0.21.1"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -185,6 +223,48 @@ python-versions = ">=3.7"
 
 [package.extras]
 cli = ["click (>=5.0)"]
+
+[[package]]
+name = "python-gnupg"
+version = "0.5.0"
+description = "A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "python-ldap"
+version = "3.4.3"
+description = "Python modules for implementing LDAP clients"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pyasn1 = ">=0.3.7"
+pyasn1_modules = ">=0.1.5"
+
+[[package]]
+name = "secrets"
+version = "1.0.2"
+description = "Scripts to manage LDAP users and change LDAP passwords"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+configobj = "*"
+python-gnupg = "*"
+python-ldap = "*"
+systematic = ">=3.0.0"
+
+[[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "sqlalchemy"
@@ -220,6 +300,18 @@ postgresql-psycopg2binary = ["psycopg2-binary"]
 postgresql-psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3-binary"]
+
+[[package]]
+name = "systematic"
+version = "4.8.7"
+description = "Sysadmin utility classes and scripts"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+configobj = "*"
+future = "*"
 
 [[package]]
 name = "typing-extensions"
@@ -258,7 +350,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "19f8661189bbf29fc59f1abdf2bf4fb09c3976add0c03015ec123395b5ae1a55"
+content-hash = "d6a809c4c61ee90c6820b8e01c21d0c6198940045eb7ab80d1eb992e9c35d660"
 
 [metadata.files]
 alembic = [
@@ -273,6 +365,10 @@ colorama = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+configobj = [
+    {file = "configobj-5.0.8-py2.py3-none-any.whl", hash = "sha256:a7a8c6ab7daade85c3f329931a807c8aee750a2494363934f8ea84d8a54c87ea"},
+    {file = "configobj-5.0.8.tar.gz", hash = "sha256:6f704434a07dc4f4dc7c9a745172c1cad449feb548febd9f7fe362629c627a97"},
+]
 flask = [
     {file = "Flask-2.2.2-py3-none-any.whl", hash = "sha256:b9c46cc36662a7949f34b52d8ec7bb59c0d74ba08ba6cb9ce9adc1d8676d9526"},
     {file = "Flask-2.2.2.tar.gz", hash = "sha256:642c450d19c4ad482f96729bd2a8f6d32554aa1e231f4f6b4e7e5264b16cca2b"},
@@ -284,6 +380,9 @@ flask-migrate = [
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-3.0.2.tar.gz", hash = "sha256:16199f5b3ddfb69e0df2f52ae4c76aedbfec823462349dabb21a1b2e0a2b65e9"},
     {file = "Flask_SQLAlchemy-3.0.2-py3-none-any.whl", hash = "sha256:7d0cd9cf73e64a996bb881a1ebd01633fc5a6d11c36ea27f7b5e251dc45476e7"},
+]
+future = [
+    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
 ]
 greenlet = [
     {file = "greenlet-2.0.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:bdfea8c661e80d3c1c99ad7c3ff74e6e87184895bbaca6ee8cc61209f8b9b85d"},
@@ -492,9 +591,32 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.9.5-cp39-cp39-win32.whl", hash = "sha256:937880290775033a743f4836aa253087b85e62784b63fd099ee725d567a48aa1"},
     {file = "psycopg2_binary-2.9.5-cp39-cp39-win_amd64.whl", hash = "sha256:484405b883630f3e74ed32041a87456c5e0e63a8e3429aa93e8714c366d62bd1"},
 ]
+pyasn1 = [
+    {file = "pyasn1-0.4.8-py2.py3-none-any.whl", hash = "sha256:39c7e2ec30515947ff4e87fb6f456dfc6e84857d34be479c9d4a4ba4bf46aa5d"},
+    {file = "pyasn1-0.4.8.tar.gz", hash = "sha256:aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba"},
+]
+pyasn1-modules = [
+    {file = "pyasn1-modules-0.2.8.tar.gz", hash = "sha256:905f84c712230b2c592c19470d3ca8d552de726050d1d1716282a1f6146be65e"},
+    {file = "pyasn1_modules-0.2.8-py2.py3-none-any.whl", hash = "sha256:a50b808ffeb97cb3601dd25981f6b016cbb3d31fbf57a8b8a87428e6158d0c74"},
+]
 python-dotenv = [
     {file = "python-dotenv-0.21.1.tar.gz", hash = "sha256:1c93de8f636cde3ce377292818d0e440b6e45a82f215c3744979151fa8151c49"},
     {file = "python_dotenv-0.21.1-py3-none-any.whl", hash = "sha256:41e12e0318bebc859fcc4d97d4db8d20ad21721a6aa5047dd59f090391cb549a"},
+]
+python-gnupg = [
+    {file = "python-gnupg-0.5.0.tar.gz", hash = "sha256:70758e387fc0e0c4badbcb394f61acbe68b34970a8fed7e0f7c89469fe17912a"},
+    {file = "python_gnupg-0.5.0-py2.py3-none-any.whl", hash = "sha256:345723a03e67b82aba0ea8ae2328b2e4a3906fbe2c18c4082285c3b01068f270"},
+]
+python-ldap = [
+    {file = "python-ldap-3.4.3.tar.gz", hash = "sha256:ab26c519a0ef2a443a2a10391fa3c5cb52d7871323399db949ebfaa9f25ee2a0"},
+]
+secrets = [
+    {file = "secrets-1.0.2-py2-none-any.whl", hash = "sha256:15a7e07b91bd3fd42b0893415fc1be14236e030d7edb33492cf966cf3936e815"},
+    {file = "secrets-1.0.2.tar.gz", hash = "sha256:37075ab08607092e76da2b86e94dd38a0216ec80088a0a3f9220077750aeddf9"},
+]
+six = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-2.0.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:807d4f83dcf0b7fd60b7af5f677e3d20151083c3454304813e450f6f6e4b4a5c"},
@@ -538,6 +660,10 @@ sqlalchemy = [
     {file = "SQLAlchemy-2.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:13929b9806b002e3018a2f4d6666466298f43043c53b037a27520d8e8dad238d"},
     {file = "SQLAlchemy-2.0.0-py3-none-any.whl", hash = "sha256:192210daec1062e93fcc732de0c602c4b58097257c56874baa6e491849e82ceb"},
     {file = "SQLAlchemy-2.0.0.tar.gz", hash = "sha256:92388d03220eda6d744277a4d2cbcbb557509c7f7582215f61f8a04ec264be59"},
+]
+systematic = [
+    {file = "systematic-4.8.7-py3-none-any.whl", hash = "sha256:1abbaac95b78f7421b4baa0e946f978a2e37b3e076a036d9813b26bdd8f5fe00"},
+    {file = "systematic-4.8.7.tar.gz", hash = "sha256:3b7715c7cca3a460a38fbaa8ef20c8327f94147ce2e3a2e1d105b232ab353a11"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.4.0-py3-none-any.whl", hash = "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"},
