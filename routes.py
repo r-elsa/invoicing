@@ -35,7 +35,7 @@ def dashboard():
     error = False 
     returntemplate = ""
     error_message = ""  
-    noinvoices = False
+    noinvoices = True
 
     if request.method == "POST":
         if referralroute[-6:]=="signup":
@@ -44,10 +44,8 @@ def dashboard():
             password = request.form["password"]
             email = request.form["email"]
         
-            soughtuser = users.check_signup(username)
-            
-            if (len(soughtuser)) > 0:
-                error = True
+            soughtuser= users.check_signup(username)
+            if soughtuser:
                 returntemplate = "signup.html"
                 error_message = "Username already taken"
           
@@ -82,11 +80,15 @@ def dashboard():
             raised_date = datetime.now()
             due_date = request.form["due_date"]
             status = request.form["status"]
-            tax_type = request.form["tax_type"] 
-            discount = request.form["discount"]
+            tax_type = int(request.form["tax_type"])
+            discount = int(request.form["discount"])
             comment = request.form["comment"]
-        
+            product_price = request.form['product']
             product_amount = int(request.form["product_amount"])
+         
+            final_price = ((int(product_price)* int(product_amount)))*(1-((discount)/100))*(1-((tax_type/100)))
+     
+            
             invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount)
 
 
@@ -122,8 +124,9 @@ def dashboard():
     if error == True:
         return render_template(returntemplate, error_message = error_message)
     else:
-        if len(all_invoices)==0:
-            noinvoices = True
+     
+        if invoices.count_rows(logged_user)[0] >0:
+            noinvoices = False
         return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices)
 
 @app.route("/createinvoice", methods=["GET", "POST"])
@@ -195,9 +198,7 @@ def filter():
         all_projects = projects.return_all(logged_user)
         return render_template("extended_filtering.html", clients = all_clients, projects=all_projects, noinvoices=True)
           
-   
-
-        
+    
 
 @app.route("/filterbyclient", methods = ["POST"])
 def filter_by_client():

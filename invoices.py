@@ -19,9 +19,17 @@ def create_invoice(logged_user,project_name,client_name,summary, raised_date, du
    
 
 def return_all(logged_user):
-    sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user"
+    sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user" \
+    " ORDER BY id DESC LIMIT 10"
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchall() 
+
+
+
+def count_rows(logged_user):
+    sql = "SELECT COUNT(*) FROM invoices WHERE logged_user =:logged_user"
+    result = db.session.execute(text(sql), {"logged_user":logged_user})
+    return result.fetchone() 
    
 
 

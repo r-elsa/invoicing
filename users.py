@@ -26,7 +26,7 @@ def check_login(username,password):
 def check_signup(username):
     sql = "SELECT id, username FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
-    soughtuser = result.fetchall()
+    soughtuser = result.fetchone()
     return soughtuser
 
 

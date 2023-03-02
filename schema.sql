@@ -48,8 +48,8 @@ CREATE TABLE products (
     user_id INTEGER REFERENCES users,
     name TEXT,
     description TEXT,
-    price_per_unit FLOAT,
-    amount INTEGER
+    price INTEGER,
+   
 
 );
 
