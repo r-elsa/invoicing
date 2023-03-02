@@ -21,5 +21,15 @@ def create_invoice(logged_user,project_name,client_name,summary, raised_date, du
 def return_all(logged_user):
     sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user"
     result = db.session.execute(text(sql), {"logged_user":logged_user})
-    all_invoices = result.fetchall() 
-    return all_invoices 
+    return result.fetchall() 
+   
+
+
+def filter_by_client( logged_user,client):
+    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status FROM invoices I, users U" \
+          " WHERE I.logged_user = U.id AND I.logged_user =:logged_user AND I.client_name =:client"
+    result = db.session.execute(text(sql), {"logged_user":logged_user, "client":client })
+    return result.fetchall()
+
+
+

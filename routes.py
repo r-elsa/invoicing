@@ -184,7 +184,23 @@ def add_new_client():
 
 @app.route("/addproject", methods=["GET"])
 def add_new_project():
-    return render_template("add_project.html") 
+    return render_template("add_project.html")
+
+
+@app.route("/filter", methods = ["GET","POST"])
+def filter_by_client():
+    logged_user = session["logged_user"] 
+    if request.method == "GET":
+        all_clients = clients.return_all(logged_user)
+        return render_template("extended_filtering.html", clients = all_clients, noinvoices=True)
+          
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
+        
+        chosen_client = request.form["client"]
+        invoices_chosen_client = invoices.filter_by_client(logged_user,chosen_client)
+        return render_template("extended_filtering.html",invoices = invoices_chosen_client, noinvoices=False ) 
 
 @app.route("/logout")
 def logout():

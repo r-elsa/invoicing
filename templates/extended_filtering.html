@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %}extended filtering{% endblock %}
+{% block content %}
+
+
+
+  <button id ="topright"><a href="/dashboard"  target="_"  >To dashboard</a></button>
+
+  <div class="maincontainer">
+    <div class="maincontainercontent">
+
+      <h2> Extended filtering </h2>
+
+      <form action="/filter" method="POST">
+   
+      <br>Filter by client<SELECT name="client" required>
+        {% for client in clients %}
+        <OPTION value={{client.name}}>{{client.name}}</option>
+        {% endfor %}
+      </SELECT>
+      <br>
+
+      <input type="submit" value="Add" class="">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  </form>
+
+  {% if noinvoices %}
+  <p></p>
+
+  {% else %}
+
+  <table>
+      <tr>
+          <th>Invoice number</th>
+          <th>Project</th>
+          <th>Client</th>
+          <th>Due date</th>
+          <th>Status</th>
+
+      </tr>
+      {% for invoice in invoices %}
+  
+          <tr>
+              <th> {{invoice.id}}</th>
+              <th>{{invoice.project_name}}</th>
+              <th>{{invoice.client_name}}</th>
+              <th>{{invoice.due_date}}</th>
+              <th>{{invoice.status}}</th>
+          </tr>
+
+      {% endfor %}
+  </table>
+
+{% endif %}
+
+
+
+
+
+    
+      </div>
+    </div>
+
+
+      {% endblock %}
