@@ -187,20 +187,60 @@ def add_new_project():
     return render_template("add_project.html")
 
 
-@app.route("/filter", methods = ["GET","POST"])
-def filter_by_client():
+@app.route("/filter", methods = ["GET"])
+def filter():
     logged_user = session["logged_user"] 
     if request.method == "GET":
         all_clients = clients.return_all(logged_user)
-        return render_template("extended_filtering.html", clients = all_clients, noinvoices=True)
+        all_projects = projects.return_all(logged_user)
+        return render_template("extended_filtering.html", clients = all_clients, projects=all_projects, noinvoices=True)
           
-    if request.method == "POST":
+   
+
+        
+
+@app.route("/filterbyclient", methods = ["POST"])
+def filter_by_client():
+     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
+        logged_user = session["logged_user"] 
         
         chosen_client = request.form["client"]
-        invoices_chosen_client = invoices.filter_by_client(logged_user,chosen_client)
-        return render_template("extended_filtering.html",invoices = invoices_chosen_client, noinvoices=False ) 
+        if chosen_client:
+            invoices_chosen_client = invoices.filter_by_client(logged_user,chosen_client)
+        
+        all_clients = clients.return_all(logged_user)
+        all_projects = projects.return_all(logged_user)
+        return render_template("extended_filtering.html", clients = all_clients, projects=all_projects,invoices = invoices_chosen_client, noinvoices=False) 
+
+
+@app.route("/filterbyproject", methods = ["POST"])
+def filter_by_project():
+     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+                abort(403)
+        logged_user = session["logged_user"] 
+
+        chosen_project = request.form["project"]
+       
+        if chosen_project:
+            invoices_chosen_project = invoices.filter_by_project(logged_user,chosen_project)
+            print(invoices_chosen_project)
+        
+        all_clients = clients.return_all(logged_user)
+        all_projects = projects.return_all(logged_user)
+          
+        return render_template("extended_filtering.html",clients = all_clients, projects=all_projects, invoices = invoices_chosen_project, noinvoices=False) 
+
+
+
+
+
+
+
+
+
 
 @app.route("/logout")
 def logout():

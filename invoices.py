@@ -31,5 +31,11 @@ def filter_by_client( logged_user,client):
     result = db.session.execute(text(sql), {"logged_user":logged_user, "client":client })
     return result.fetchall()
 
+def filter_by_project(logged_user, project_name):
+    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status FROM invoices I" \
+          " WHERE I.logged_user = :logged_user AND I.project_name =:project_name"
+    result = db.session.execute(text(sql), {"logged_user":logged_user, "project_name":project_name })
+    return result.fetchall()
+
 
 

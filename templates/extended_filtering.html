@@ -11,9 +11,9 @@
 
       <h2> Extended filtering </h2>
 
-      <form action="/filter" method="POST">
+      <form action="/filterbyclient" method="POST">
    
-      <br>Filter by client<SELECT name="client" required>
+      <br>Filter invoices by client<SELECT name="client">
         {% for client in clients %}
         <OPTION value={{client.name}}>{{client.name}}</option>
         {% endfor %}
@@ -23,6 +23,22 @@
       <input type="submit" value="Add" class="">
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
+
+  <form action="/filterbyproject" method="POST">
+   
+    <br>Filter invoices by project<SELECT name="project">
+      {% for project in projects %}
+      <OPTION value={{project.name}}>{{project.name}}</option>
+      {% endfor %}
+    </SELECT>
+    <br>
+
+    <input type="submit" value="Add" class="">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+
+
 
   {% if noinvoices %}
   <p></p>
