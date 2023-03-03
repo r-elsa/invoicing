@@ -28,9 +28,10 @@
                 <th>Project</th>
                 <th>Client</th>
                 <th>Due date</th>
+                <th>Price (€)</th>
                 <th>Status</th>
-                <th>Price</th>
-                <th>Delete</th>
+                <th></th>
+                <th></th>
 
             </tr>
             {% for invoice in all_invoices %}
@@ -40,9 +41,11 @@
                     <th>{{invoice.project_name}}</th>
                     <th>{{invoice.client_name}}</th>
                     <th>{{invoice.due_date}}</th>
-                    <th>{{invoice.status}}</th>
                     <th>{{invoice.final_price}}</th>
-                    <th><a href="/delete/{{invoice.id}}" target="_"  > Delete</a></th>
+                    <th>{{invoice.status}}</th>
+                    <th><button id ="modification"><a href="/update/{{invoice.id}}"  target="_"  >Update</a></button></th>
+                    <th><button id ="modification"><a href="/delete/{{invoice.id}}"  target="_"  >Delete</a></button></th>
+                  
                   
                 </tr>
   

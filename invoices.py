@@ -24,6 +24,11 @@ def return_all(logged_user):
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchall() 
 
+def return_status(logged_user,id):
+    sql = "SELECT id, status FROM invoices WHERE logged_user =:logged_user AND id =:id"
+    result = db.session.execute(text(sql), {"logged_user":logged_user, "id":id})
+    return result.fetchone() 
+
 
 
 def count_rows(logged_user):
@@ -48,6 +53,12 @@ def filter_by_project(logged_user, project_name):
 
 def delete(logged_user,id):
     sql = "DELETE FROM invoices WHERE logged_user =:logged_user AND id = :id"
-    result = db.session.execute(text(sql), {"logged_user":logged_user, "id":id })
+    db.session.execute(text(sql), {"logged_user":logged_user, "id":id })
     db.session.commit()
+
+def update_status(logged_user,id,status):
+    sql = "UPDATE invoices SET status=:status WHERE logged_user=:logged_user and id=:id"
+    db.session.execute(text(sql), {"status":status,"logged_user":logged_user, "id":id })
+    db.session.commit()
+    
 
