@@ -83,23 +83,22 @@ def dashboard():
             tax_type = int(request.form["tax_type"])
             discount = int(request.form["discount"])
             comment = request.form["comment"]
-            product_price = request.form['product']
+            product_name = request.form['product']
+            product_price = products.get_product_price(product_name)[1]
             product_amount = int(request.form["product_amount"])
          
-            final_price = ((int(product_price)* int(product_amount)))*(1-((discount)/100))*(1-((tax_type/100)))
-     
+            final_price = ((product_price*product_amount))*(1-((discount)/100))*(1-((tax_type/100)))
+            final_price_string = "{:.2f}".format(final_price)
             
-            invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount)
-
+            invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price_string)
 
         elif referralroute[-10:]=="addproduct":
             invoice = None
             user_id = session["logged_user"]
             product_name = request.form["name"]  
             description = request.form["description"] 
-            priceperunit = request.form["priceperunit"]
-            amount = 0
-            products.add_product(invoice,user_id,product_name,description,priceperunit,amount)
+            price = request.form["price"]
+            products.add_product(invoice,user_id,product_name,description,price)
         
 
         elif referralroute[-9:]=="addclient":
@@ -141,9 +140,8 @@ def create_new_invoice():
             user_id = session["logged_user"]
             product_name = request.form["name"]  
             description = request.form["description"] 
-            priceperunit = request.form["priceperunit"]
-            amount = 0
-            products.add_product(invoice,user_id,product_name,description,priceperunit,amount)
+            price = request.form["price"]
+            products.add_product(invoice,user_id,product_name,description,price)
         
 
         elif referralroute[-9:]=="addclient":
@@ -169,8 +167,7 @@ def create_new_invoice():
         noproducts=True
     all_clients = clients.return_all(logged_user)
     all_projects = projects.return_all(logged_user)
-    
-    
+      
     
     return render_template("create_invoice.html", products = all_products, clients = all_clients, projects = all_projects)
 
@@ -233,11 +230,6 @@ def filter_by_project():
         all_projects = projects.return_all(logged_user)
           
         return render_template("extended_filtering.html",clients = all_clients, projects=all_projects, invoices = invoices_chosen_project, noinvoices=False) 
-
-
-
-
-
 
 
 

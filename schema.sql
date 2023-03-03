@@ -6,7 +6,7 @@ CREATE TABLE users (
 
 );
 
-    CREATE TABLE clients (
+CREATE TABLE clients (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE,
     phone TEXT,
@@ -38,7 +38,8 @@ CREATE TABLE invoices (
     tax_type INTEGER,
     discount FLOAT,
     comment TEXT,
-    product_amount INTEGER
+    product_amount INTEGER,
+    final_price TEXT
  
 );
 
@@ -48,9 +49,7 @@ CREATE TABLE products (
     user_id INTEGER REFERENCES users,
     name TEXT,
     description TEXT,
-    price INTEGER,
-   
-
+    price INTEGER
 );
 
 CREATE TABLE taxtypes (

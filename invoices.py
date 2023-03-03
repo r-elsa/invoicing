@@ -5,21 +5,21 @@ from sqlalchemy import text
 
 
 
-def create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount):
+def create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price):
     sql = "INSERT INTO invoices (logged_user, project_name, client_name, summary," \
-          "raised_date, due_date, status, tax_type,discount,comment,product_amount) VALUES"\
+          "raised_date, due_date, status, tax_type,discount,comment,product_amount, final_price) VALUES"\
           "(:logged_user, :project_name, :client_name, :summary, :raised_date, :due_date, :status," \
-          " :tax_type, :discount,:comment, :product_amount)"
+          " :tax_type, :discount,:comment, :product_amount, :final_price)"
     
     db.session.execute(text(sql), {"logged_user":logged_user,  "project_name": project_name, "client_name": client_name, 
     "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,
-    "comment":comment, "product_amount": product_amount})
+    "comment":comment, "product_amount": product_amount, "final_price":final_price})
 
     db.session.commit()
    
 
 def return_all(logged_user):
-    sql = "SELECT id, project_name, client_name, due_date, status FROM invoices WHERE logged_user =:logged_user" \
+    sql = "SELECT id, project_name, client_name, due_date, status, final_price FROM invoices WHERE logged_user =:logged_user" \
     " ORDER BY id DESC LIMIT 10"
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchall() 
@@ -34,13 +34,13 @@ def count_rows(logged_user):
 
 
 def filter_by_client( logged_user,client):
-    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status FROM invoices I, users U" \
+    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price FROM invoices I, users U" \
           " WHERE I.logged_user = U.id AND I.logged_user =:logged_user AND I.client_name =:client"
     result = db.session.execute(text(sql), {"logged_user":logged_user, "client":client })
     return result.fetchall()
 
 def filter_by_project(logged_user, project_name):
-    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status FROM invoices I" \
+    sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price FROM invoices I" \
           " WHERE I.logged_user = :logged_user AND I.project_name =:project_name"
     result = db.session.execute(text(sql), {"logged_user":logged_user, "project_name":project_name })
     return result.fetchall()

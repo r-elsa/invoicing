@@ -7,7 +7,7 @@
 
 
 
-       
+        <a href="/filter" class="feature five" target="_"  > Extended filtering</a>
         <a href="/addproject" class="feature four" target="_"  > Add project</a>
         <a href="/addclient" class="feature three" target="_"  > Add client</a>
         <a href="/addproduct" class="feature two" target="_"  > Add product</a>
@@ -29,6 +29,7 @@
                 <th>Client</th>
                 <th>Due date</th>
                 <th>Status</th>
+                <th>Price</th>
 
             </tr>
             {% for invoice in all_invoices %}
@@ -39,6 +40,7 @@
                     <th>{{invoice.client_name}}</th>
                     <th>{{invoice.due_date}}</th>
                     <th>{{invoice.status}}</th>
+                    <th>{{invoice.final_price}}</th>
                 </tr>
   
             {% endfor %}
@@ -46,7 +48,7 @@
 
 {% endif %}
 
-<a href="/filter" class="feature five" target="_"  > Extended filtering</a>
+
    
 
 
