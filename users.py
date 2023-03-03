@@ -5,7 +5,7 @@ from sqlalchemy import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-def check_login(username,password):
+def check_login(username, password):
     sql = "SELECT id, username, password FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
     user = result.fetchone()  
@@ -25,7 +25,7 @@ def check_signup(username):
     return soughtuser
 
 
-def create_user(username,email,password):
+def create_user(username, email, password):
     password_hashed = generate_password_hash(password)
     sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"
     db.session.execute(text(sql), {"username":username, "email":email,"password":password_hashed})

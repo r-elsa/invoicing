@@ -5,7 +5,7 @@ from sqlalchemy import text
 
 
 
-def create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price):
+def create_invoice(logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price):
     sql = "INSERT INTO invoices (logged_user, project_name, client_name, summary," \
           "raised_date, due_date, status, tax_type,discount,comment,product_amount, final_price) VALUES"\
           "(:logged_user, :project_name, :client_name, :summary, :raised_date, :due_date, :status," \
@@ -24,7 +24,7 @@ def return_all(logged_user):
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchall() 
 
-def return_status(logged_user,id):
+def return_status(logged_user, id):
     sql = "SELECT id, status FROM invoices WHERE logged_user =:logged_user AND id =:id"
     result = db.session.execute(text(sql), {"logged_user":logged_user, "id":id})
     return result.fetchone() 
@@ -38,7 +38,7 @@ def count_rows(logged_user):
    
 
 
-def filter_by_client( logged_user,client):
+def filter_by_client( logged_user, client):
     sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price FROM invoices I, users U" \
           " WHERE I.logged_user = U.id AND I.logged_user =:logged_user AND I.client_name =:client"
     result = db.session.execute(text(sql), {"logged_user":logged_user, "client":client })
@@ -51,12 +51,12 @@ def filter_by_project(logged_user, project_name):
     return result.fetchall()
 
 
-def delete(logged_user,id):
+def delete(logged_user, id):
     sql = "DELETE FROM invoices WHERE logged_user =:logged_user AND id = :id"
     db.session.execute(text(sql), {"logged_user":logged_user, "id":id })
     db.session.commit()
 
-def update_status(logged_user,id,status):
+def update_status(logged_user, id, status):
     sql = "UPDATE invoices SET status=:status WHERE logged_user=:logged_user and id=:id"
     db.session.execute(text(sql), {"status":status,"logged_user":logged_user, "id":id })
     db.session.commit()

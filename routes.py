@@ -46,7 +46,7 @@ def dashboard():
                 return render_template(returntemplate, error_message=error_message)
           
             else:       
-                users.create_user(username,email,password)
+                users.create_user(username, email, password)
                 logged_user = users.get_user_id(username)
                 session["logged_user"] = logged_user
                 session["username"] = username
@@ -57,7 +57,7 @@ def dashboard():
             username = request.form["username"]
             password = request.form["password"]
             
-            (soughtuser, logged_user) = users.check_login(username,password)
+            (soughtuser, logged_user) = users.check_login(username, password)
             if not soughtuser:
                 returntemplate = "login.html"
                 error_message = "Wrong username or password"
@@ -88,7 +88,7 @@ def dashboard():
             final_price = ((product_price*product_amount))*(1-((discount)/100))*(1-((tax_type/100)))
             final_price_string = "{:.2f}".format(final_price)
             
-            invoices.create_invoice(logged_user,project_name,client_name,summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price_string)
+            invoices.create_invoice(logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price_string)
 
         if referralroute[-10:] =="addproduct":
             invoice = None
@@ -96,7 +96,7 @@ def dashboard():
             product_name = request.form["name"]  
             description = request.form["description"] 
             price = request.form["price"]
-            products.add_product(invoice,user_id,product_name,description,price)
+            products.add_product(invoice, user_id, product_name, description, price)
         
         if referralroute[-9:] =="addclient":
             client_name =  request.form["name"] 
@@ -104,7 +104,7 @@ def dashboard():
             client_email =  request.form["email"] 
             client_description =  request.form["description"] 
             user_id = session["logged_user"]
-            clients.add_client(client_name,client_phone,client_email, client_description, user_id)
+            clients.add_client(client_name, client_phone, client_email, client_description, user_id)
         
         if referralroute[-10:] == "addproject":
             user_id = session["logged_user"]
@@ -116,7 +116,7 @@ def dashboard():
             user_id = session["logged_user"]
             invoice_id = request.form["id"]
             status = request.form["status"]
-            invoices.update_status(user_id,invoice_id,status)
+            invoices.update_status(user_id, invoice_id, status)
         
     logged_user = session["logged_user"] 
     username = session["username"]
@@ -139,7 +139,7 @@ def create_new_invoice():
             product_name = request.form["name"]  
             description = request.form["description"] 
             price = request.form["price"]
-            products.add_product(invoice,user_id,product_name,description,price)
+            products.add_product(invoice, user_id, product_name, description, price)
         
 
         if referralroute[-9:]=="addclient":
@@ -148,7 +148,7 @@ def create_new_invoice():
             client_email =  request.form["email"] 
             client_description = request.form["description"] 
             user_id = session["logged_user"]
-            clients.add_client(client_name,client_phone,client_email, client_description, user_id)
+            clients.add_client(client_name, client_phone, client_email, client_description, user_id)
         
         if referralroute[-10:] == "addproject":
             user_id = session["logged_user"]
@@ -203,7 +203,7 @@ def filter_by_client():
         
         chosen_client = request.form["client"]
         if chosen_client:
-            invoices_chosen_client = invoices.filter_by_client(logged_user,chosen_client)
+            invoices_chosen_client = invoices.filter_by_client(logged_user, chosen_client)
         
         all_clients = clients.return_all(logged_user)
         all_projects = projects.return_all(logged_user)
@@ -220,7 +220,7 @@ def filter_by_project():
         chosen_project = request.form["project"]
        
         if chosen_project:
-            invoices_chosen_project = invoices.filter_by_project(logged_user,chosen_project)
+            invoices_chosen_project = invoices.filter_by_project(logged_user, chosen_project)
         
         all_clients = clients.return_all(logged_user)
         all_projects = projects.return_all(logged_user)
@@ -231,14 +231,14 @@ def filter_by_project():
 @app.route("/delete/<id>")
 def delete(id):
     logged_user = session["logged_user"] 
-    invoices.delete(logged_user,id)
+    invoices.delete(logged_user, id)
     return redirect("/dashboard")
 
 
 @app.route("/update/<id>")
 def modify(id):
     logged_user = session["logged_user"] 
-    status = invoices.return_status(logged_user,id)[1]
+    status = invoices.return_status(logged_user, id)[1]
     return render_template("update_invoice.html", invoice_id=id, status=status)
     
 

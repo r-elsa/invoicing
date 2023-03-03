@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
 
-def add_product(invoice,user_id,name,description,price):
+def add_product(invoice, user_id, name, description, price):
    
     sql = "INSERT INTO products (invoice, user_id, name, description, price ) VALUES (:invoice, :user_id,"\
          ":name, :description, :price )"
