@@ -8,9 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 def check_login(username,password):
     sql = "SELECT id, username, password FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
-    user = result.fetchone()
- 
-      
+    user = result.fetchone()  
     if not user:
         return (False, 1000)
     else:
@@ -18,10 +16,7 @@ def check_login(username,password):
             return (True,user[0])
         else:
             return (False, 1000)
-   
-   
-     
-
+      
 
 def check_signup(username):
     sql = "SELECT id, username FROM users WHERE username LIKE :username"
