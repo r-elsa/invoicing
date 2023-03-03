@@ -30,6 +30,7 @@
                 <th>Due date</th>
                 <th>Status</th>
                 <th>Price</th>
+                <th>Delete</th>
 
             </tr>
             {% for invoice in all_invoices %}
@@ -41,6 +42,8 @@
                     <th>{{invoice.due_date}}</th>
                     <th>{{invoice.status}}</th>
                     <th>{{invoice.final_price}}</th>
+                    <th><a href="/delete/{{invoice.id}}" target="_"  > Delete</a></th>
+                  
                 </tr>
   
             {% endfor %}

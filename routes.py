@@ -53,6 +53,7 @@ def dashboard():
                 users.create_user(username,email,password)
                 logged_user = users.get_user_id(username)
                 session["logged_user"] = logged_user
+                session["username"]=username
             
 
         elif referralroute[-5:]=="login":
@@ -68,6 +69,7 @@ def dashboard():
             
             else:
                 session["logged_user"] = logged_user
+                session["username"]=username
 
    
         elif referralroute[-13:]=="createinvoice":
@@ -117,6 +119,7 @@ def dashboard():
         
     
     logged_user = session["logged_user"] 
+    username = session["username"]
     all_invoices = invoices.return_all(logged_user)
 
 
@@ -232,7 +235,13 @@ def filter_by_project():
         return render_template("extended_filtering.html",clients = all_clients, projects=all_projects, invoices = invoices_chosen_project, noinvoices=False) 
 
 
+@app.route("/delete/<id>")
+def delete(id):
+    logged_user = session["logged_user"] 
+    invoices.delete(logged_user,id)
 
+    return redirect("/dashboard")
+    
 
 
 @app.route("/logout")

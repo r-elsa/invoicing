@@ -25,7 +25,7 @@ CREATE TABLE projects (
 
 );
 
-CREATE TABLE invoices (
+CREATE TABLE invoices ON DELETE CASCADE (
     id SERIAL PRIMARY KEY, 
     logged_user INTEGER, 
     description TEXT, 
