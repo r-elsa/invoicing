@@ -38,7 +38,7 @@ def count_rows(logged_user):
    
 
 
-def filter_by_client( logged_user, client):
+def filter_by_client(logged_user, client):
     sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price FROM invoices I, users U" \
           " WHERE I.logged_user = U.id AND I.logged_user =:logged_user AND I.client_name =:client"
     result = db.session.execute(text(sql), {"logged_user":logged_user, "client":client })

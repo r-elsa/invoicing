@@ -161,7 +161,7 @@ def create_new_invoice():
     logged_user = session["logged_user"] 
     all_products = products.return_all(logged_user)
     if len(all_products)==0:
-        noproducts=True
+        noinvoices=True
     all_clients = clients.return_all(logged_user)
     all_projects = projects.return_all(logged_user)
       
@@ -190,7 +190,7 @@ def filter():
     if request.method == "GET":
         all_clients = clients.return_all(logged_user)
         all_projects = projects.return_all(logged_user)
-        return render_template("extended_filtering.html", clients=all_clients, projects=all_projects, noinvoices=True)
+        return render_template("extended_filtering.html", clients=all_clients, projects=all_projects, no_invoices=True)
           
     
 
@@ -199,15 +199,15 @@ def filter_by_client():
      if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
+
         logged_user = session["logged_user"] 
-        
         chosen_client = request.form["client"]
         if chosen_client:
             invoices_chosen_client = invoices.filter_by_client(logged_user, chosen_client)
         
         all_clients = clients.return_all(logged_user)
         all_projects = projects.return_all(logged_user)
-        return render_template("extended_filtering.html", clients=all_clients, projects=all_projects,invoices=invoices_chosen_client, noinvoices=False) 
+        return render_template("extended_filtering.html", clients=all_clients, projects=all_projects,invoices=invoices_chosen_client) 
 
 
 @app.route("/filterbyproject", methods = ["POST"])
@@ -222,10 +222,12 @@ def filter_by_project():
         if chosen_project:
             invoices_chosen_project = invoices.filter_by_project(logged_user, chosen_project)
         
+  
+        
         all_clients = clients.return_all(logged_user)
         all_projects = projects.return_all(logged_user)
           
-        return render_template("extended_filtering.html",clients=all_clients, projects=all_projects, invoices=invoices_chosen_project, noinvoices=False) 
+        return render_template("extended_filtering.html",clients=all_clients, projects=all_projects, invoices=invoices_chosen_project) 
 
 
 @app.route("/delete/<id>")
