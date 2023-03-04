@@ -31,6 +31,15 @@ The application does not yet take into account XSS and CSRF.
 The user can not yet modify and/or delete an invoice or sort invoices based on parameters.
 Currently it is only possible to add one product to an invoice, this will be improved to the next due date. 
 
+## Final submission status update:
+The application does take into account CSRF.
+The user can delete an invoice.
+The user can update the status of an invoice.
+
+The application has functionality of extended filtering based on product or client.
+
+
+
 ## Requirements specification
 
 ### Purpose of the application
