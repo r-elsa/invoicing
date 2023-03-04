@@ -12,7 +12,7 @@
       <h2> Extended filtering </h2>
 
       <div>
-      <form action="/filterbyclient" method="POST" id="extendedfiltering">
+      <form action="/filterbyclient" method="GET" id="extendedfiltering">
    
       Filter invoices by client<SELECT name="client" required>
         {% for client in clients %}
@@ -27,7 +27,7 @@
 
   <div>
 
-  <form action="/filterbyproject" method="POST" id="extendedfiltering">
+  <form action="/filterbyproject" method="GET" id="extendedfiltering">
    
     Filter invoices by project<SELECT name="project" required >
       {% for project in projects %}

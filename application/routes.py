@@ -197,14 +197,14 @@ def filter():
           
     
 
-@app.route("/filterbyclient", methods = ["POST"])
+@app.route("/filterbyclient", methods = ["GET"])
 def filter_by_client():
-     if request.method == "POST":
-        if session["csrf_token"] != request.form["csrf_token"]:
+     if request.method == "GET":
+        if session["csrf_token"] != request.args["csrf_token"]:
                 abort(403)
 
         logged_user = session["logged_user"] 
-        chosen_client = request.form["client"]
+        chosen_client = request.args["client"]
         filtered_invoices = False
         if chosen_client:
             invoices_chosen_client = invoices.filter_by_client(logged_user, chosen_client)
@@ -217,13 +217,13 @@ def filter_by_client():
         return render_template("extended_filtering.html", clients=all_clients, projects=all_projects,invoices=invoices_chosen_client,filtered_invoices=filtered_invoices) 
 
 
-@app.route("/filterbyproject", methods = ["POST"])
+@app.route("/filterbyproject", methods = ["GET"])
 def filter_by_project():
-     if request.method == "POST":
-        if session["csrf_token"] != request.form["csrf_token"]:
+     if request.method == "GET":
+        if session["csrf_token"] != request.args["csrf_token"]:
                 abort(403)
         logged_user = session["logged_user"] 
-        chosen_project = request.form["project"]
+        chosen_project = request.args["project"]
         
         filtered_invoices = False
         if chosen_project:
@@ -237,7 +237,7 @@ def filter_by_project():
         return render_template("extended_filtering.html",clients=all_clients, projects=all_projects, invoices=invoices_chosen_project, filtered_invoices = filtered_invoices) 
 
 
-@app.route("/delete/<id>")
+@app.route("/delete/<id>", methods=["POST"])
 def delete(id):
     if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
@@ -246,7 +246,7 @@ def delete(id):
     return redirect("/dashboard")
 
 
-@app.route("/update/<id>")
+@app.route("/update/<id>", methods=["POST"])
 def modify(id):
     if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)

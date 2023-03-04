@@ -27,13 +27,20 @@
                     <th> {{invoice.id}}</th>
                     <th>{{invoice.project_name}}</th>
                     <th>{{invoice.client_name}}</th>
-                    <th>{{invoice.due_date}}</th>
+                    <th>{{invoice.due_date.strftime("%Y-%m-%d") }}</th>
                     <th>{{invoice.final_price}}</th>
                     <th>{{invoice.status}}</th>
-                    <th><button id ="modification"><a href="/update/{{invoice.id}}"  target="_"  >Update</a></button></th>
-                    <th><button id ="modification"><a href="/delete/{{invoice.id}}"  target="_"  >Delete</a></button></th>
+                    <th> <form action="/update/{{invoice.id}}"  method="POST">         
+                        <input type="submit" value="Update" id ="modification">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form></th>
+
+                    <th> <form action="/delete/{{invoice.id}}"  method="POST">         
+                        <input type="submit" value="Delete" id ="modification">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form></th>
                   
-                  
+                   
                 </tr>
   
             {% endfor %}

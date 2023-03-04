@@ -63,5 +63,8 @@ def get_sum(logged_user):
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchone()
 
-    
+""" EXEMPEL:
+sql = "SELECT c.choice, COUNT(a.id) FROM choices c LEFT JOIN answers a " \
+          "ON c.id=a.choice_id WHERE c.poll_id=:poll_id GROUP BY c.id"
+     """
 
