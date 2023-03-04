@@ -16,7 +16,7 @@ body {
   flex-direction: column; 
   justify-content: center;
   min-height: 100%;
-  padding: 20px;
+
 }
 
 
@@ -31,6 +31,7 @@ body {
   padding: 0px;
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
+ 
 }
 
 .filter{
@@ -81,7 +82,7 @@ input[type=text]:hover{
   flex-wrap: wrap;
   background: #fff;
   margin-bottom: 5vh;
-  margin-top: 12vh;
+  margin-top: 18vh;
   padding-bottom: 10vh;
   border-radius: 10px 10px 10px 10px;
 
@@ -143,6 +144,15 @@ h1 {
 
 }
 
+#toprighttwo{
+  right: 15vw;
+  top:0;
+  position:absolute;
+  background-color: aliceblue;
+  color:#92badd;
+
+}
+
 #modification{
   background-color: aliceblue;
   color:#92badd;
@@ -170,7 +180,7 @@ h1 {
 }
 
 .one{
-  padding-left:25%;
+  padding-left:30%;
         
 }
 .two{
@@ -191,6 +201,11 @@ h1 {
         
 }
 
+.six{
+  padding-left:18%;
+        
+}
+
 .modify{
   color:white;
   display: block;
@@ -203,9 +218,10 @@ h1 {
         
 }
 
-#invoicecreation {
-  padding: 10vw;
-  width: 60vw;
+.invoicecreation {
+  margin-top: 150px;
+
+
 }
 
 
