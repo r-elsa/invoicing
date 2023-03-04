@@ -1,0 +1,31 @@
+
+{% extends "layout_application.html" %}
+{% block title %}add project{% endblock %}
+{% block content %}
+
+
+<a href="/dashboard" class="feature six"  target="_"  >Back to Dashboard</a>
+<div class="maincontainer">
+    <div class="maincontainercontent">
+
+        <h2> Update invoice number {{invoice_id}} with status '{{status}}' </h2>
+       
+
+        <form action="/dashboard" method="POST">
+            <br>
+            <p>
+                <input type="radio" name="status" value="created" placeholder="Created"> Created
+                <input type="radio" name="status" value="sent" placeholder="Sent"> Sent
+                <input type="radio" name="status" value="paid" placeholder="Paid"> Paid
+                <input type="hidden" name="id" value="{{invoice_id}}">
+              <p>
+            <br>
+
+
+            <input type="submit" value="Update" class="">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </form>
+    </div>
+</div>
+
+        {% endblock %}

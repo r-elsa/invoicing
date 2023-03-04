@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Open+Sans');
+
+
+html {
+  background-color: aqua;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+}
+
+.maincontainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+  min-height: 100%;
+
+}
+
+
+
+.maincontainercontent {
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  padding: 0px;
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+ 
+}
+
+.filter{
+  padding: 15px 27px !important;
+  margin:0 !important;
+}
+
+
+
+input[type=button], input[type=submit], button  {
+  background-color:#92badd;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  border-radius: 5px 5px 5px 5px;
+  margin: 25px 20px 40px 20px;
+
+}
+
+
+input[type=submit]:hover{
+  border: 1px solid #92badd;
+} 
+
+input[type=text] ,input[type=number],input[type=datetime-local] , input[type=button], input[type=password],textarea, select {
+  background-color: #f6f6f6;
+  padding: 15px 35px;
+  text-align: center;
+  font-size: 16px;
+  margin: 5px;
+  width: 60%;
+  border-radius: 5px 5px 5px 5px;
+  border:none;
+  outline:none;
+
+}
+
+input[type=text]:hover{
+  border: 1px solid #92badd;
+} 
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  margin-bottom: 5vh;
+  margin-top: 18vh;
+  padding-bottom: 10vh;
+  border-radius: 10px 10px 10px 10px;
+
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+
+}
+
+.flex-container > h2 {
+  width:100vw;
+  margin-bottom: 5vh;
+  padding-left: 10vw;
+}
+.flex-container > div {
+  width: 400px;
+  margin: 10px;
+  text-align: center;
+  
+}
+
+#extendedfiltering{
+  display: inline-block;
+}
+
+
+h3 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  display:inline-block;
+  margin: 40px 8px 10px 8px; 
+  color: #92badd;
+   
+}
+
+a {
+  text-decoration: none;
+  color: #92badd;
+  
+}
+
+
+a:hover {
+  text-decoration: underline;
+  
+ 
+}
+h1 {
+  font-weight: 400;
+  padding:2vw;
+  color:white;
+}
+
+#topright{
+    right:0;
+    top:0;
+    position:absolute;
+    background-color: aliceblue;
+    color:#92badd;
+
+}
+
+#toprighttwo{
+  right: 15vw;
+  top:0;
+  position:absolute;
+  background-color: aliceblue;
+  color:#92badd;
+
+}
+
+#modification{
+  background-color: aliceblue;
+  color:#92badd;
+  border: none;
+  padding: 0px 0px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  border-radius: 5px 5px 5px 5px;
+  margin: 0px 0px 0px 0px;
+  padding: 10px 30px;
+
+}
+
+
+.feature{
+    top:4vw;
+    position:fixed;
+    font-weight: 600;
+    font-size: 16px;
+    color:white;
+    padding-left:30%;
+          
+}
+
+.one{
+  padding-left:30%;
+        
+}
+.two{
+  padding-left:40%;
+        
+}
+.three{
+  padding-left:50%;
+        
+}
+.four{
+  padding-left:60%;
+        
+}
+
+.five{
+  padding-left:70%;
+        
+}
+
+.six{
+  padding-left:18%;
+        
+}
+
+.modify{
+  color:white;
+  display: block;
+  height: 28px;
+  width: 40px;
+  border: 1px solid white;
+  border-radius: 25px;
+  
+
+        
+}
+
+.invoicecreation {
+  margin-top: 150px;
+
+
+}
+
+
+.error_message {
+  color:red;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: 50px;
+  grid-row-gap: 10px;
+  padding: 10px;
+}
+
+
+.grid-container > div {
+  background-color: white;
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  padding: 20px 0;
+  font-size: 15px;
+  width: 70vw;
+}
+
+
+table {
+  border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  box-shadow: 0 10px 30px 0;
+  margin-left:auto;
+  margin-right:auto; 
+}
+
+td, th {
+  text-align: left;
+  padding: 8px; 
+  border: none;
+  color: white;
+  padding: 15px 60px;
+
+  font-size: 14px;
+  margin: 25px 20px 40px 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #69aae3;
+}
+
+tbody tr:nth-child(odd) {
+  background-color:#8ac2f3;
+}

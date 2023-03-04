@@ -1,0 +1,48 @@
+{% extends "layout_application.html" %}
+{% block title %}dashboard{% endblock %}
+{% block content %}
+
+<h1> Welcome {{username}}  </h1>
+
+        {% if noinvoices %}
+        <p> You have no invoices yet</p>
+
+        {% else %}
+
+        <table>
+            <tr>
+                <th>Invoice number</th>
+                <th>Project</th>
+                <th>Client</th>
+                <th>Due date</th>
+                <th>Price (€)</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            {% for invoice in all_invoices %}
+        
+                <tr>
+                    <th> {{invoice.id}}</th>
+                    <th>{{invoice.project_name}}</th>
+                    <th>{{invoice.client_name}}</th>
+                    <th>{{invoice.due_date}}</th>
+                    <th>{{invoice.final_price}}</th>
+                    <th>{{invoice.status}}</th>
+                    <th><button id ="modification"><a href="/update/{{invoice.id}}"  target="_"  >Update</a></button></th>
+                    <th><button id ="modification"><a href="/delete/{{invoice.id}}"  target="_"  >Delete</a></button></th>
+                  
+                  
+                </tr>
+  
+            {% endfor %}
+        </table>
+
+{% endif %}
+
+
+   
+
+
+{% endblock %}

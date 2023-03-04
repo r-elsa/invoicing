@@ -1,0 +1,32 @@
+{% extends "layout_application.html" %}
+{% block title %}add project{% endblock %}
+{% block content %}
+
+
+<a href="/dashboard" class="feature six"  target="_"  >Back to Dashboard</a>
+
+    <div class="maincontainer">
+        <div class="maincontainercontent">
+
+            <h2> Add project</h2>
+           
+
+            <form action="/createinvoice" method="POST">
+                <br>
+                <input type="text" name="name" placeholder="Project name (unique)" required>
+                <br>
+
+                <textarea name="description" placeholder="Project despcription" required></textarea>
+                <br>
+
+
+                <input type="submit" value="Add" class="">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+            <span class="error_message">{{errormessage}}</span>
+        </div>
+    </div>
+
+            {% endblock %}
+
+

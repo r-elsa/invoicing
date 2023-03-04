@@ -1,0 +1,33 @@
+{% extends "layout_application.html" %}
+{% block title %}add product{% endblock %}
+{% block content %}
+
+
+
+<a href="/dashboard" class="feature six"  target="_"  >Back to Dashboard</a>
+ <div class="maincontainer">
+  <div class="maincontainercontent">
+      <h2> Add product</h2>
+   
+
+
+      <form action="/createinvoice" method="POST">
+        <br>
+        <input type="text" name="name" placeholder="Product name (unique)" required>
+        <br>
+
+        <textarea name="description" placeholder="Description of product" required></textarea>
+        <br>
+
+        <input type="number" name="price" placeholder="Price per unit" required>
+        <br>
+
+        <br>
+        <input type="submit" value="Add" class="">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      </form>
+      <span class="error_message">{{errormessage}}</span>
+      </div>
+      </div>
+
+      {% endblock %}

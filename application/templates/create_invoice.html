@@ -1,0 +1,83 @@
+
+
+{% extends "layout_application.html" %}
+{% block title %}create invoice{% endblock %}
+{% block content %}
+
+<a href="/dashboard" class="feature six"  target="_"  >Back to Dashboard</a>
+  <div class="maincontainer">
+ 
+    <div class="maincontainercontent invoicecreation">
+
+      <h2> Create invoice</h2>
+
+      <form action="/dashboard" method="POST">
+
+        <br>Select project<SELECT name="project_name" required>
+          {% for project in projects %}
+          <OPTION value={{project.name}}>{{project.name}}</option>
+          {% endfor %}
+        </SELECT>
+        <br>
+        <a href="/addproject" target="_"> OR Add project</a>
+
+        <br>Select client<SELECT name="client_name" required>
+          {% for client in clients %}
+          <OPTION value={{client.name}}>{{client.name}}</option>
+          {% endfor %}
+        </SELECT><br>
+        <a href="/addclient" target="_">OR Add client</a>
+
+
+        <br>Select product<SELECT name="product" required>
+          {% for product in products %}
+          <OPTION value={{product.name}}>{{product.name}}</option>
+          {% endfor %}
+        </SELECT><br>
+
+        <a href="/addproduct" target="_">OR Add product</a>
+        <br>
+        <br>
+
+        <input type="number" name="product_amount" placeholder="Amount of selected product" min="0" required>
+
+        <br>
+        <input type="text" class="" name="summary" placeholder="Product summary" rows="3" required>
+        <br>
+
+        <input type="datetime-local" class="" name="due_date" placeholder="Due date" required>
+        <br>
+        <br>
+        <p>Status:</p>
+
+        <p>
+          <input type="radio" name="status" value="created" placeholder="Created" checked> Created
+          <input type="radio" name="status" value="sent" placeholder="Sent"> Sent
+          <input type="radio" name="status" value="paid" placeholder="Paid"> Paid
+        <p>
+
+          <br>
+        <p>Tax ( % ):</p>
+        <p>
+          <input type="radio" name="tax_type" value="0" checked> 0 %
+          <input type="radio" name="tax_type" value="10"> 10 %
+          <input type="radio" name="tax_type" value="14"> 14 %
+          <input type="radio" name="tax_type" value="24"> 24%
+          <input type="radio" name="tax_type" value="30"> 30%
+        <p>
+          <br>
+          <input type="number" name="discount" placeholder="Discount ( % )" min="0" required>
+
+          <br>
+          <textarea name="comment" rows="3" cols="50" placeholder="Comments" required></textarea>
+
+          <br>
+          <input type="submit" value="Create" class="">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      </form>
+      </div>
+  </div>
+
+
+
+      {% endblock %}
