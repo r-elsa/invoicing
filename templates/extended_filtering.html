@@ -14,7 +14,7 @@
       <div>
       <form action="/filterbyclient" method="POST" id="extendedfiltering">
    
-      Filter invoices by client<SELECT name="client">
+      Filter invoices by client<SELECT name="client" required>
         {% for client in clients %}
         <OPTION value={{client.name}}>{{client.name}}</option>
         {% endfor %}
@@ -29,7 +29,7 @@
 
   <form action="/filterbyproject" method="POST" id="extendedfiltering">
    
-    Filter invoices by project<SELECT name="project" >
+    Filter invoices by project<SELECT name="project" required >
       {% for project in projects %}
       <OPTION value={{project.name}}>{{project.name}}</option>
       {% endfor %}

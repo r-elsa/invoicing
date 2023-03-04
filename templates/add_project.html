@@ -13,7 +13,7 @@
 
             <form action="/createinvoice" method="POST">
                 <br>
-                <input type="text" name="name" placeholder="Project name" required>
+                <input type="text" name="name" placeholder="Project name (unique)" required>
                 <br>
 
                 <textarea name="description" placeholder="Project despcription" required></textarea>
@@ -23,6 +23,7 @@
                 <input type="submit" value="Add" class="">
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
+            <span class="error_message">{{error_message}}</span>
         </div>
     </div>
 

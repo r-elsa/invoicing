@@ -57,5 +57,11 @@ def update_status(logged_user, id, status):
     sql = "UPDATE invoices SET status=:status WHERE logged_user=:logged_user and id=:id"
     db.session.execute(text(sql), {"status":status,"logged_user":logged_user, "id":id })
     db.session.commit()
+
+def get_sum(logged_user):
+    sql = "SELECT SUM(final_price) FROM invoices WHERE logged_user =:logged_user"
+    result = db.session.execute(text(sql), {"logged_user":logged_user})
+    return result.fetchone()
+
     
 

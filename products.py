@@ -16,6 +16,15 @@ def get_product_price(name):
     price = result.fetchone() 
     return price 
 
+def check_product(user_id, name):
+    sql = "SELECT id, name FROM products WHERE user_id =:user_id AND name =:name"
+    result = db.session.execute(text(sql), {"user_id":user_id,"name":name})
+    product = result.fetchone() 
+    if product is None:
+        return False
+    return True 
+
+
 def return_all(user_id):
     sql = "SELECT id, name FROM products WHERE user_id =:user_id"
     result = db.session.execute(text(sql), {"user_id":user_id})

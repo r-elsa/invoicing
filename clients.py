@@ -9,6 +9,14 @@ def add_client(name, phone, email, description, user_id):
     db.session.execute(text(sql), {"name":name,"phone":phone,"email":email,"description":description,"user_id":user_id})
     db.session.commit()
 
+def check_client(user_id, name):
+    sql = "SELECT id, name FROM clients WHERE user_id =:user_id AND name =:name"
+    result = db.session.execute(text(sql), {"user_id":user_id,"name":name})
+    client = result.fetchone() 
+    if client is None:
+        return False
+    return True 
+
 def return_all(user_id):
     sql = "SELECT id, name FROM clients WHERE user_id =:user_id"
     result = db.session.execute(text(sql), {"user_id":user_id})
