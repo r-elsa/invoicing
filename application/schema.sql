@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE, 
     email TEXT,
-    password TEXT
+    password TEXT,
+    admin BOOLEAN
 
 );
 
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS projects (
     name TEXT UNIQUE PRIMARY KEY, 
     description TEXT,
     user_id INTEGER REFERENCES users
+   
 
 );
 
@@ -62,7 +64,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 
-
+INSERT INTO  users (username, email, password, admin) VALUES ('admin123', 'admin@gmail.com', 'pbkdf2:sha256:260000$lyZYw1c6mQ50BHsl$7cb81fc63341a77a7b7846705ed9b8b1e07e1703cbb1c71b03df15bbe02944e5', True)
 
 
 

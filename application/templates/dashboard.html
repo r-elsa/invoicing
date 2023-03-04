@@ -7,6 +7,59 @@
         {% if noinvoices %}
         <p> You have no invoices yet</p>
 
+        {% elif isadmin %}
+
+        <table>
+            <tr>
+
+                <th> User ID</th>
+                <th> Username</th>
+                <th> User email</th>
+                <th>Invoice number</th>
+                <th>Project</th>
+                <th>Client</th>
+                <th>Due date</th>
+                <th>Price (€)</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            {% for invoice in all_invoices %}
+        
+                <tr>
+                    <th>{{invoice.userid}}</th>
+                    <th>{{invoice.username}}</th>
+                    <th>{{invoice.email}}</th>
+
+                    <th> {{invoice.id}}</th>
+                    <th>{{invoice.project_name}}</th>
+                    <th>{{invoice.client_name}}</th>
+                    <th>{{invoice.due_date.strftime("%Y-%m-%d") }}</th>
+                    <th>{{"%.2f"|format(invoice.final_price)}}</th>
+                    <th>{{invoice.status}}</th>
+
+                    <th> <form action="/update/{{invoice.id}}"  method="POST">         
+                        <input type="submit" value="Update" id ="modification">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form></th>
+
+                    <th> <form action="/delete/{{invoice.id}}"  method="POST">         
+                        <input type="submit" value="Delete" id ="modification">
+                        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                    </form></th>
+                  
+                   
+                </tr>
+  
+            {% endfor %}
+        </table>
+
+
+
+
+
+
         {% else %}
 
         <table>
@@ -28,7 +81,7 @@
                     <th>{{invoice.project_name}}</th>
                     <th>{{invoice.client_name}}</th>
                     <th>{{invoice.due_date.strftime("%Y-%m-%d") }}</th>
-                    <th>{{invoice.final_price}}</th>
+                    <th>{{"%.2f"|format(invoice.final_price)}}</th>
                     <th>{{invoice.status}}</th>
                     <th> <form action="/update/{{invoice.id}}"  method="POST">         
                         <input type="submit" value="Update" id ="modification">

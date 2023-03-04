@@ -22,9 +22,16 @@ def return_all(logged_user):
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchall() 
 
-def return_status(logged_user, id):
-    sql = "SELECT id, status FROM invoices WHERE logged_user =:logged_user AND id =:id"
-    result = db.session.execute(text(sql), {"logged_user":logged_user, "id":id})
+def return_all_admin():
+    sql = "SELECT U.id AS userid, U.username, U.email, I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price" \
+    " FROM invoices I LEFT JOIN users U ON U.id = I.logged_user ORDER BY userid, I.id"
+    result = db.session.execute(text(sql))
+    return result.fetchall() 
+
+
+def return_status(id):
+    sql = "SELECT id, status FROM invoices WHERE id =:id"
+    result = db.session.execute(text(sql), {"id":id})
     return result.fetchone() 
 
 
@@ -53,9 +60,19 @@ def delete(logged_user, id):
     db.session.execute(text(sql), {"logged_user":logged_user, "id":id })
     db.session.commit()
 
+def admin_delete(id):
+    sql = "DELETE FROM invoices WHERE id = :id"
+    db.session.execute(text(sql), {"id":id })
+    db.session.commit()
+
 def update_status(logged_user, id, status):
     sql = "UPDATE invoices SET status=:status WHERE logged_user=:logged_user and id=:id"
     db.session.execute(text(sql), {"status":status,"logged_user":logged_user, "id":id })
+    db.session.commit()
+
+def admin_update_status(id, status):
+    sql = "UPDATE invoices SET status=:status WHERE id=:id"
+    db.session.execute(text(sql), {"status":status, "id":id })
     db.session.commit()
 
 def get_sum(logged_user):

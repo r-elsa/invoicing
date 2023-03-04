@@ -23,15 +23,21 @@ def check_signup(username):
     return soughtuser
 
 
-def create_user(username, email, password):
+def create_user(username, email, password, admin):
     password_hashed = generate_password_hash(password)
-    sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"
-    db.session.execute(text(sql), {"username":username, "email":email,"password":password_hashed})
+    sql = "INSERT INTO users (username, email, password, admin) VALUES (:username, :email, :password, :admin)"
+    db.session.execute(text(sql), {"username":username, "email":email,"password":password_hashed, "admin":admin})
     db.session.commit()
 
 
 def get_user_id(username):
     sql = "SELECT id FROM users WHERE username LIKE :username"
+    result = db.session.execute(text(sql), {"username":"%"+username+"%"})
+    logged_user= result.fetchall()[0][0]
+    return logged_user
+
+def is_admin(username):
+    sql = "SELECT admin FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
     logged_user= result.fetchall()[0][0]
     return logged_user

@@ -35,6 +35,7 @@ def dashboard():
             username = request.form["username"]
             password = request.form["password"]
             email = request.form["email"]
+            admin = False
         
             soughtuser = users.check_signup(username)
             if soughtuser:
@@ -42,7 +43,7 @@ def dashboard():
                 #return render_template("signup.html", error_message="Username already taken")
           
             else:       
-                users.create_user(username, email, password)
+                users.create_user(username, email, password, admin)
                 logged_user = users.get_user_id(username)
                 session["logged_user"] = logged_user
                 session["username"] = username
@@ -87,22 +88,37 @@ def dashboard():
 
         
         if "update" in referralroute:
+            username = session["username"] 
             user_id = session["logged_user"]
             invoice_id = request.form["id"]
             status = request.form["status"]
-            invoices.update_status(user_id, invoice_id, status)
+            if users.is_admin(username):
+                status = invoices.admin_update_status(invoice_id, status)
+            else:
+                invoices.update_status(user_id, invoice_id, status)
     
 
-
+   
     logged_user = session["logged_user"] 
     username = session["username"]
     all_invoices = invoices.return_all(logged_user)
     sumofinvoices = invoices.get_sum(logged_user)
-    print(sumofinvoices)
+   
 
     if invoices.count_rows(logged_user)[0] > 0:
         noinvoices = False
-    return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices)
+
+    isadmin = False
+    if users.is_admin(username):
+        isadmin = True
+        all_invoices = invoices.return_all_admin()
+        noinvoices = False
+        if len(all_invoices) ==0:
+             noinvoices=True
+       
+       
+
+    return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices, isadmin=isadmin)
 
 @app.route("/createinvoice", methods=["GET","POST"])
 def create_new_invoice():
@@ -242,17 +258,46 @@ def delete(id):
     if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
     logged_user = session["logged_user"] 
-    invoices.delete(logged_user, id)
+    
+    username = session["username"] 
+
+    if users.is_admin(username):
+        invoices.admin_delete(id)
+    else:
+         invoices.delete(logged_user, id)
     return redirect("/dashboard")
 
 
-@app.route("/update/<id>", methods=["POST"])
+
+
+@app.route("/update/<int:id>", methods=["POST"])
 def modify(id):
     if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
-    logged_user = session["logged_user"] 
-    status = invoices.return_status(logged_user, id)[1]
+
+    status = invoices.return_status(id)[1]
     return render_template("update_invoice.html", invoice_id=id, status=status)
+
+
+
+
+
+
+
+
+
+    """ allow = False
+    if is_admin():
+        allow = True
+    elif is_user() and user_id() == id:
+        allow = True
+    elif is_user():
+        sql = "SELECT 1 FROM friends WHERE user1=:user1 AND user2=:user2"
+        result = db.session.execute(sql, {"user1":user_id(), "user2":id})
+        if result.fetchone():
+            allow = True
+    if not allow:
+        return render_template("error.html", error="Ei oikeutta nähdä sivua") """
     
 
 @app.route("/logout")
