@@ -1,8 +1,6 @@
 from db import db
 from db import db
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
-
 
 
 def create_invoice(logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price):
@@ -36,7 +34,6 @@ def count_rows(logged_user):
     result = db.session.execute(text(sql), {"logged_user":logged_user})
     return result.fetchone() 
    
-
 
 def filter_by_client(logged_user, client):
     sql = "SELECT I.id, I.project_name, I.client_name, I.due_date, I.status, I.final_price FROM invoices I, users U" \

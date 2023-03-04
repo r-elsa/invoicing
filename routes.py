@@ -1,11 +1,7 @@
 from app import app
-from flask import Flask
 from flask import redirect, render_template, request, session, abort
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text
-from datetime import datetime, timezone
+from datetime import datetime
 import secrets
-from db import db
 import users
 import invoices
 import products
