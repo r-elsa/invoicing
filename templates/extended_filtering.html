@@ -6,45 +6,47 @@
 
   <button id ="topright"><a href="/dashboard"  target="_"  >To dashboard</a></button>
 
-  <div class="maincontainer">
-    <div class="maincontainercontent">
-
+  <div>
+   
+    <div class="flex-container">
       <h2> Extended filtering </h2>
 
-      <form action="/filterbyclient" method="POST">
+      <div>
+      <form action="/filterbyclient" method="POST" id="extendedfiltering">
    
-      <br>Filter invoices by client<SELECT name="client">
+      Filter invoices by client<SELECT name="client">
         {% for client in clients %}
         <OPTION value={{client.name}}>{{client.name}}</option>
         {% endfor %}
       </SELECT>
-      <br>
-
-      <input type="submit" value="Add" class="">
+      
+      <input type="submit" value="Filter" class="filter">
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
+</div>
 
-  <form action="/filterbyproject" method="POST">
+  <div>
+
+  <form action="/filterbyproject" method="POST" id="extendedfiltering">
    
-    <br>Filter invoices by project<SELECT name="project">
+    Filter invoices by project<SELECT name="project" >
       {% for project in projects %}
       <OPTION value={{project.name}}>{{project.name}}</option>
       {% endfor %}
     </SELECT>
-    <br>
+   
 
-    <input type="submit" value="Add" class="">
+    <input type="submit" value="Filter" class="filter">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
+</div>
+
+</div>
 
 
 
-
-  {% if no_invoices %}
-  <p></p>
-
-  {% else %}
-
+  {% if filtered_invoices %}
+ 
   <table>
       <tr>
           <th>Invoice number</th>
@@ -66,16 +68,15 @@
 
       {% endfor %}
   </table>
+  {% else %}
+
+  <p>No invoices based on filter criteria</p>
+
+
 
 {% endif %}
 
 
-
-
-
-    
-      </div>
-    </div>
-
+</div>
 
       {% endblock %}
