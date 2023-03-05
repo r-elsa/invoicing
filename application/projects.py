@@ -15,8 +15,6 @@ def check_project(user_id, name):
         return False
     return True 
 
-
-
 def return_all(user_id):
     sql = "SELECT id, name FROM projects WHERE user_id =:user_id"
     result = db.session.execute(text(sql), {"user_id":user_id})

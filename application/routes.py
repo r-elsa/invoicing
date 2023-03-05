@@ -19,7 +19,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/signup", methods=["GET"])
+@app.route("/signup")
 def signup():
     return render_template("signup.html")
 
@@ -39,8 +39,7 @@ def dashboard():
         
             soughtuser = users.check_signup(username)
             if soughtuser:
-                return redirect("/signup")
-                #return render_template("signup.html", error_message="Username already taken")
+                return render_template("signup.html", error_message="Username already taken")
           
             else:       
                 users.create_user(username, email, password, admin)
@@ -56,12 +55,14 @@ def dashboard():
             
             (soughtuser, logged_user) = users.check_login(username, password)
             if not soughtuser:
-                return redirect("/login")
-                #return render_template("login.html", error_message="Wrong username or password")
+                return render_template("login.html", error_message="Wrong username or password")
             
             else:
                 session["logged_user"] = logged_user
                 session["username"] = username
+        
+        if "dashboard" in referralroute:
+            return redirect("/login")
 
    
         if referralroute[-13:] == "createinvoice":
@@ -82,8 +83,7 @@ def dashboard():
             product_amount = int(request.form["product_amount"])
          
             final_price = ((product_price*product_amount))*(1-((discount)/100))*(1-((tax_type/100)))
-            #final_price_string = "{:.2f}".format(final_price)
-            
+                  
             invoices.create_invoice(user_id, project_id, client_id, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price)
 
         
@@ -97,12 +97,11 @@ def dashboard():
             else:
                 invoices.update_status(user_id, invoice_id, status)
     
-
    
     current_user = session["logged_user"] 
     username = session["username"]
     all_invoices = invoices.return_all(current_user)
-    #sumofinvoices = invoices.get_sum(current_user)
+ 
    
 
     if invoices.count_rows(current_user)[0] > 0:
@@ -116,8 +115,6 @@ def dashboard():
         if len(all_invoices) ==0:
              noinvoices=True
        
-       
-
     return render_template("dashboard.html", all_invoices=all_invoices, username=username, noinvoices=noinvoices, isadmin=isadmin)
 
 @app.route("/createinvoice", methods=["GET","POST"])
@@ -164,8 +161,6 @@ def create_new_invoice():
                 session['errormessage'] = "Project with same name already exists"
                 return redirect("/addproject")
       
-
-
             projects.add_project(project_name, project_description, user_id)
 
     current_user = session["logged_user"] 
@@ -176,7 +171,7 @@ def create_new_invoice():
     return render_template("create_invoice.html", products=all_products, clients=all_clients, projects=all_projects)
  
 
-@app.route("/addproduct", methods=["GET", "POST"])
+@app.route("/addproduct", methods=["GET"])
 def add_new_product():
     errormessage = ''
     if session.get('errormessage'):

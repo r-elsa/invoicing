@@ -10,7 +10,6 @@
 
         <h2> Update invoice number {{invoice_id}} with status '{{status}}' </h2>
        
-
         <form action="/dashboard" method="POST">
             <br>
             <p>
@@ -20,7 +19,6 @@
                 <input type="hidden" name="id" value="{{invoice_id}}">
               <p>
             <br>
-
 
             <input type="submit" value="Update" class="">
             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

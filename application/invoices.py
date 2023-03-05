@@ -12,10 +12,8 @@ def create_invoice(user_id, project_id, client_id, summary, raised_date, due_dat
     db.session.execute(text(sql), {"user_id":user_id,  "project_id": project_id, "client_id": client_id, 
     "summary":summary, "raised_date":raised_date, "due_date":due_date, "status":status, "tax_type": tax_type,"discount":discount,
     "comment":comment, "product_amount": product_amount, "final_price":final_price})
-
     db.session.commit()
    
-
 def return_all(user_id):
     sql = "SELECT I.id, I.project_id, I.client_id, I.due_date, I.status, I.final_price, C.name AS client_name, P.name AS project_name FROM invoices I LEFT JOIN clients C ON C.id = I.client_id LEFT JOIN projects P ON P.id = I.project_id WHERE I.user_id =:user_id" \
     " ORDER BY id DESC"
@@ -29,20 +27,16 @@ def return_all_admin():
     result = db.session.execute(text(sql))
     return result.fetchall() 
 
-
 def return_status(id):
     sql = "SELECT id, status FROM invoices WHERE id =:id"
     result = db.session.execute(text(sql), {"id":id})
     return result.fetchone() 
-
-
 
 def count_rows(user_id):
     sql = "SELECT COUNT(*) FROM invoices WHERE user_id =:user_id"
     result = db.session.execute(text(sql), {"user_id":user_id})
     return result.fetchone() 
    
-
 def filter_by_client(user_id, client_id):
     sql = "SELECT I.id, I.project_id, I.client_id, I.due_date, I.status, I.final_price, C.name AS client_name, P.name AS project_name FROM invoices I LEFT JOIN clients C ON C.id = I.client_id LEFT JOIN projects P ON P.id = I.project_id" \
           " WHERE I.user_id = :user_id AND I.client_id =:client_id"
@@ -54,7 +48,6 @@ def filter_by_project(user_id, project_id):
           " WHERE I.user_id = :user_id AND I.project_id =:project_id"
     result = db.session.execute(text(sql), {"user_id":user_id, "project_id":project_id })
     return result.fetchall()
-
 
 def delete(user_id, id):
     sql = "DELETE FROM invoices WHERE user_id =:user_id AND id = :id"
