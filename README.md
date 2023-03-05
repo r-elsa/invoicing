@@ -1,7 +1,7 @@
 # Invoicing application
 
 
-## To start application
+## To start application (The application is not in production - Fly.io)
 
 1) create database and ensure that postgres is running (e.g. "sudo service postgresql start" on linux) 
 2) write database address and secret key to .env file
