@@ -16,7 +16,7 @@
    
       Filter invoices by client<SELECT name="client" required>
         {% for client in clients %}
-        <OPTION value={{client.name}}>{{client.name}}</option>
+        <OPTION value={{client.id}}>{{client.name}}</option>
         {% endfor %}
       </SELECT>
       
@@ -31,7 +31,7 @@
    
     Filter invoices by project<SELECT name="project" required >
       {% for project in projects %}
-      <OPTION value={{project.name}}>{{project.name}}</option>
+      <OPTION value={{project.id}}>{{project.name}}</option>
       {% endfor %}
     </SELECT>
    

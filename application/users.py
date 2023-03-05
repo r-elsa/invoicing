@@ -33,11 +33,11 @@ def create_user(username, email, password, admin):
 def get_user_id(username):
     sql = "SELECT id FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
-    logged_user= result.fetchall()[0][0]
-    return logged_user
+    user_id= result.fetchall()[0][0]
+    return user_id
 
 def is_admin(username):
     sql = "SELECT admin FROM users WHERE username LIKE :username"
     result = db.session.execute(text(sql), {"username":"%"+username+"%"})
-    logged_user= result.fetchall()[0][0]
-    return logged_user
+    user_id= result.fetchall()[0][0]
+    return user_id

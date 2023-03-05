@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS clients (
-    id SERIAL,
-    name TEXT UNIQUE PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE,
     phone TEXT,
     email TEXT,
     description TEXT,
@@ -19,28 +19,21 @@ CREATE TABLE IF NOT EXISTS clients (
 );
 
 CREATE TABLE IF NOT EXISTS projects (
-    id SERIAL, 
-    name TEXT UNIQUE PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, 
+    name TEXT UNIQUE,
     description TEXT,
     user_id INTEGER REFERENCES users
    
 
 );
 
-CREATE TABLE IF NOT EXISTS taxtypes (
-    id SERIAL PRIMARY KEY, 
-    tax_name TEXT,
-    tax_percentage FLOAT,
-    comment TEXT
-
-);
 
 CREATE TABLE IF NOT EXISTS invoices (
     id SERIAL PRIMARY KEY, 
-    logged_user INTEGER REFERENCES users ON DELETE CASCADE, 
+    user_id INTEGER REFERENCES users ON DELETE CASCADE, 
     description TEXT, 
-    project_name TEXT REFERENCES projects ON DELETE CASCADE,
-    client_name TEXT REFERENCES clients ON DELETE CASCADE,
+    project_id INTEGER REFERENCES projects ON DELETE CASCADE,
+    client_id INTEGER REFERENCES clients ON DELETE CASCADE,
     summary TEXT,
     raised_date TIMESTAMP,
     due_date TIMESTAMP,
@@ -55,10 +48,10 @@ CREATE TABLE IF NOT EXISTS invoices (
 );
 
 CREATE TABLE IF NOT EXISTS products (
-    id SERIAL, 
+    id SERIAL PRIMARY KEY,
     invoice INTEGER REFERENCES invoices,
     user_id INTEGER REFERENCES users,
-    name TEXT UNIQUE PRIMARY KEY,
+    name TEXT UNIQUE,
     description TEXT,
     price INTEGER
 );

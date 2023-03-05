@@ -8,6 +8,7 @@ html {
 body {
   font-family: 'Open Sans', sans-serif;
   height: 100vh;
+  max-width: 100%;
 }
 
 .maincontainer {
@@ -264,10 +265,9 @@ table {
 
 td, th {
   text-align: left;
-  padding: 8px; 
   border: none;
   color: white;
-  padding: 15px 60px;
+  padding: 7px 40px;
 
   font-size: 14px;
   margin: 25px 20px 40px 20px;

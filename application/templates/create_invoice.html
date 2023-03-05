@@ -13,17 +13,17 @@
 
       <form action="/dashboard" method="POST">
 
-        <br>Select project<SELECT name="project_name" required>
+        <br>Select project<SELECT name="project_id" required>
           {% for project in projects %}
-          <OPTION value={{project.name}}>{{project.name}}</option>
+          <OPTION value={{project.id}}>{{project.name}}</option>
           {% endfor %}
         </SELECT>
         <br>
         <a href="/addproject" target="_"> OR Add project</a>
 
-        <br>Select client<SELECT name="client_name" required>
+        <br>Select client<SELECT name="client_id" required>
           {% for client in clients %}
-          <OPTION value={{client.name}}>{{client.name}}</option>
+          <OPTION value={{client.id}}>{{client.name}}</option>
           {% endfor %}
         </SELECT><br>
         <a href="/addclient" target="_">OR Add client</a>
@@ -31,7 +31,7 @@
 
         <br>Select product<SELECT name="product" required>
           {% for product in products %}
-          <OPTION value={{product.name}}>{{product.name}}</option>
+          <OPTION value={{product.id}}>{{product.name}}</option>
           {% endfor %}
         </SELECT><br>
 
@@ -66,7 +66,7 @@
           <input type="radio" name="tax_type" value="30"> 30%
         <p>
           <br>
-          <input type="number" name="discount" placeholder="Discount ( % )" min="0" required>
+          <input type="number" name="discount" placeholder="Discount ( % )" min="0" max="70" required>
 
           <br>
           <textarea name="comment" rows="3" cols="50" placeholder="Comments" required></textarea>

@@ -10,9 +10,9 @@ def add_product(invoice, user_id, name, description, price):
     "price": price })
     db.session.commit()
 
-def get_product_price(name):
-    sql = "SELECT id, price FROM products WHERE name =:name"
-    result = db.session.execute(text(sql), {"name":name})
+def get_product_price(id):
+    sql = "SELECT id, price FROM products WHERE id =:id"
+    result = db.session.execute(text(sql), {"id":id})
     price = result.fetchone() 
     return price 
 

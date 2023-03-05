@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, session, abort, url_for
+from flask import redirect, render_template, request, session, abort
 from datetime import datetime
 import secrets
 import users
@@ -19,7 +19,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/signup",  methods=["GET"])
+@app.route("/signup", methods=["GET"])
 def signup():
     return render_template("signup.html")
 
@@ -67,9 +67,9 @@ def dashboard():
         if referralroute[-13:] == "createinvoice":
             if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
-            logged_user=session["logged_user"]
-            project_name = request.form["project_name"]  
-            client_name = request.form["client_name"] 
+            user_id = session["logged_user"]
+            project_id = request.form["project_id"]  
+            client_id = request.form["client_id"] 
             summary = request.form["summary"]
             raised_date = datetime.now()
             due_date = request.form["due_date"]
@@ -77,14 +77,14 @@ def dashboard():
             tax_type = int(request.form["tax_type"])
             discount = int(request.form["discount"])
             comment = request.form["comment"]
-            product_name = request.form['product']
-            product_price = products.get_product_price(product_name)[1]
+            product_id = request.form['product']
+            product_price = products.get_product_price(product_id)[1]
             product_amount = int(request.form["product_amount"])
          
             final_price = ((product_price*product_amount))*(1-((discount)/100))*(1-((tax_type/100)))
             #final_price_string = "{:.2f}".format(final_price)
             
-            invoices.create_invoice(logged_user, project_name, client_name, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price)
+            invoices.create_invoice(user_id, project_id, client_id, summary, raised_date, due_date, status, tax_type, discount, comment, product_amount, final_price)
 
         
         if "update" in referralroute:
@@ -99,13 +99,13 @@ def dashboard():
     
 
    
-    logged_user = session["logged_user"] 
+    current_user = session["logged_user"] 
     username = session["username"]
-    all_invoices = invoices.return_all(logged_user)
-    sumofinvoices = invoices.get_sum(logged_user)
+    all_invoices = invoices.return_all(current_user)
+    #sumofinvoices = invoices.get_sum(current_user)
    
 
-    if invoices.count_rows(logged_user)[0] > 0:
+    if invoices.count_rows(current_user)[0] > 0:
         noinvoices = False
 
     isadmin = False
@@ -168,10 +168,10 @@ def create_new_invoice():
 
             projects.add_project(project_name, project_description, user_id)
 
-    logged_user = session["logged_user"] 
-    all_products = products.return_all(logged_user)
-    all_clients = clients.return_all(logged_user)
-    all_projects = projects.return_all(logged_user)
+    current_user = session["logged_user"] 
+    all_products = products.return_all(current_user)
+    all_clients = clients.return_all(current_user)
+    all_projects = projects.return_all(current_user)
     
     return render_template("create_invoice.html", products=all_products, clients=all_clients, projects=all_projects)
  
@@ -191,7 +191,6 @@ def add_new_client():
     if session.get('errormessage'):
         errormessage = session['errormessage'] 
         session.pop('errormessage')
-   
     return render_template("add_client.html", errormessage=errormessage) 
 
 @app.route("/addproject", methods=["GET"])
@@ -205,10 +204,10 @@ def add_new_project():
 
 @app.route("/filter", methods = ["GET"])
 def filter():
-    logged_user = session["logged_user"] 
+    current_user = session["logged_user"] 
     if request.method == "GET":
-        all_clients = clients.return_all(logged_user)
-        all_projects = projects.return_all(logged_user)
+        all_clients = clients.return_all(current_user)
+        all_projects = projects.return_all(current_user)
         return render_template("extended_filtering.html", clients=all_clients, projects=all_projects,filtered_invoices=False)
           
     
@@ -219,17 +218,17 @@ def filter_by_client():
         if session["csrf_token"] != request.args["csrf_token"]:
                 abort(403)
 
-        logged_user = session["logged_user"] 
+        current_user = session["logged_user"] 
         chosen_client = request.args["client"]
         filtered_invoices = False
         if chosen_client:
-            invoices_chosen_client = invoices.filter_by_client(logged_user, chosen_client)
+            invoices_chosen_client = invoices.filter_by_client(current_user, chosen_client)
         
         if len(invoices_chosen_client)>0:
             filtered_invoices=True
         
-        all_clients = clients.return_all(logged_user)
-        all_projects = projects.return_all(logged_user)
+        all_clients = clients.return_all(current_user)
+        all_projects = projects.return_all(current_user)
         return render_template("extended_filtering.html", clients=all_clients, projects=all_projects,invoices=invoices_chosen_client,filtered_invoices=filtered_invoices) 
 
 
@@ -238,17 +237,17 @@ def filter_by_project():
      if request.method == "GET":
         if session["csrf_token"] != request.args["csrf_token"]:
                 abort(403)
-        logged_user = session["logged_user"] 
-        chosen_project = request.args["project"]
+        current_user = session["logged_user"] 
+        chosen_project_id = request.args["project"]
         
         filtered_invoices = False
-        if chosen_project:
-            invoices_chosen_project = invoices.filter_by_project(logged_user, chosen_project)
+        if chosen_project_id:
+            invoices_chosen_project = invoices.filter_by_project(current_user, chosen_project_id)
         if len(invoices_chosen_project)>0:
             filtered_invoices=True
         
-        all_clients = clients.return_all(logged_user)
-        all_projects = projects.return_all(logged_user)
+        all_clients = clients.return_all(current_user)
+        all_projects = projects.return_all(current_user)
           
         return render_template("extended_filtering.html",clients=all_clients, projects=all_projects, invoices=invoices_chosen_project, filtered_invoices = filtered_invoices) 
 
@@ -257,14 +256,14 @@ def filter_by_project():
 def delete(id):
     if session["csrf_token"] != request.form["csrf_token"]:
                 abort(403)
-    logged_user = session["logged_user"] 
+    current_user = session["logged_user"] 
     
     username = session["username"] 
 
     if users.is_admin(username):
         invoices.admin_delete(id)
     else:
-         invoices.delete(logged_user, id)
+         invoices.delete(current_user, id)
     return redirect("/dashboard")
 
 
@@ -278,27 +277,7 @@ def modify(id):
     status = invoices.return_status(id)[1]
     return render_template("update_invoice.html", invoice_id=id, status=status)
 
-
-
-
-
-
-
-
-
-    """ allow = False
-    if is_admin():
-        allow = True
-    elif is_user() and user_id() == id:
-        allow = True
-    elif is_user():
-        sql = "SELECT 1 FROM friends WHERE user1=:user1 AND user2=:user2"
-        result = db.session.execute(sql, {"user1":user_id(), "user2":id})
-        if result.fetchone():
-            allow = True
-    if not allow:
-        return render_template("error.html", error="Ei oikeutta nähdä sivua") """
-    
+  
 
 @app.route("/logout")
 def logout():
